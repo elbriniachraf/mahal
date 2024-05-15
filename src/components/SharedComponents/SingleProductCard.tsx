@@ -41,16 +41,16 @@ const SingleProductCard = ({ item }: propsType) => {
     <>
       <div className="single-product">
         <div className="product-image pos-rel">
-          <Link href={`/shop-details/${item.id}`} className="">
-            <Image
-              style={{ width: "100%", height: "auto" }}
-              src={productImg ? productImg : (item?.product_images && item.product_images.length > 0 ? item.product_images[0].image_url : '/placeholder-image.jpg')}
-
-              alt="img"
-              width={500}
+        <Link href={`/shop-details/${item.id}`} className="">
+  <Image
+    style={{ width: "100%", height: "auto" }}
+    src={productImg ? productImg : (item.product_images && item.product_images.length > 0 ? item.product_images[0].image_url : '/placeholder-image.jpg')}
+    alt="img"
+    width={500}
     height={500}
-            />
-          </Link>
+  />
+</Link>
+
           <div className="product-action">
             <button
               type="button"

@@ -23,7 +23,8 @@ import { getColorClass } from "@/hooks/condition-class";
 import ReviewForm from "@/form/ReviewForm";
 import axios from "axios";
 const ShopDetailsArea = ({ id }: idType) => {
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState<any>(null);
+
   const [isOpen, setIsOpen] = useState(false);
   const openVideoModal = () => setIsOpen(!isOpen);
   const dispatch = useDispatch();

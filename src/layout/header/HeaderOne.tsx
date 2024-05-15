@@ -38,7 +38,7 @@ const HeaderOne = () => {
   const handleCompare = () => {
     router.push("/compare");
   };
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<any>([]);
 
   const fetchCategories = async () => {
     try {
@@ -269,12 +269,13 @@ const HeaderOne = () => {
                   className="category-items"
                   style={{ display: openCategory ? "block" : "none" }}
                 >
-                  {categories.map(category => (
-                    <Link key={category.id} href={`/category/${category.slug}`} className="category-item">
-                      <div className="category-name">{category.name}</div>{" "}
-                      {/* Vous pouvez également afficher le nombre d'articles pour chaque catégorie si nécessaire */}
-                    </Link>
-                  ))}
+                 {categories.map((category: any) => (
+    <Link key={category.id} href={`/category/${category.slug}`} className="category-item">
+        <div className="category-name">{category.name}</div>{" "}
+        {/* You can also display the number of articles for each category if necessary */}
+    </Link>
+))}
+
                 </div>
               </div>
               <SearchHeaderOne />

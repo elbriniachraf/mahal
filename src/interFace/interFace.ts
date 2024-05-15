@@ -54,6 +54,12 @@ export interface ProductColor {
 }
 
 export interface ProductsType {
+  product_images: any;
+  name: ReactNode;
+  product_images: any;
+  product_images: boolean;
+  product_images: boolean;
+  name: ReactNode;
   id: number;
   title: string;
   vendorId: string;
@@ -163,6 +169,7 @@ export interface faqDataType {
 }
 
 export interface filterCategoryType {
+  name: ReactNode;
   id: number;
   category: string;
   total: number;

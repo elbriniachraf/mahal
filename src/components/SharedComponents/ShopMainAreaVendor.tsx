@@ -15,7 +15,8 @@ const ShopMainAreaVendor = ({ vendorId }: propsType) => {
   const searchData = useSearchForVendor(vendorId as string);
   const mapData = searchData?.length ? searchData : filterData;
 
-  const [vendorInfo, setVendorInfo] = useState(null);
+  const [vendorInfo, setVendorInfo] = useState<any>(null);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -32,7 +33,7 @@ const ShopMainAreaVendor = ({ vendorId }: propsType) => {
         
         setLoading(false);
       } catch (error) {
-        setError(error.message);
+       
         setLoading(false);
       }
     };
@@ -51,11 +52,12 @@ const ShopMainAreaVendor = ({ vendorId }: propsType) => {
               <div className="shop-main-wrapper mb-60">
                 <FilterHeaderCommon />
                 <div className="products-wrapper products-5-column">
-                  <>
-                    {vendorInfo?.products.map((item) => (
-                      <SingleProductCard key={item.id} item={item} />
-                    ))}
-                  </>
+                <>
+                {vendorInfo && vendorInfo.products && vendorInfo.products.map((item: any) => (
+  <SingleProductCard key={item.id} item={item} />
+))}
+
+  </>
                   
                 </div>
                 <Pagination/>

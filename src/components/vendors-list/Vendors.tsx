@@ -25,7 +25,7 @@ const Vendors = () => {
     fetchVendors();
   }, []);
 
-  const handlePageChange = async (e, page) => {
+  const handlePageChange = async (e:any, page:any) => {
     e.preventDefault();
     try {
       const response = await fetch(`http://127.0.0.1:8000/api/vendors?page=${page}`);
@@ -72,7 +72,7 @@ const Vendors = () => {
       <section className="product-area pt-120 pb-120">
         <div className="container container-small">
           <div className="row">
-            {vendors.map((vendor) => (
+            {vendors.map((vendor:any) => (
               <div key={vendor.id} className="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-12">
                 <SingleVendorCard item={vendor}/>
               </div>

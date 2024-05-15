@@ -6,6 +6,7 @@ import { useSearch } from "@/hooks/useSearch";
 import FilterHeaderCommon from "../SharedComponents/Sidebars/FilterHeaderCommon";
 import SidebarFilterMainTwo from "./subComponents/filterTwo/SidebarFilterMainTwo";
 import Pagination from "../SharedComponents/Pagination";
+import { ProductsType } from "@/interFace/interFace";
 
 const ShopMainArea = () => {
   const filterData = useFilter(0, 25);
@@ -21,7 +22,7 @@ const ShopMainArea = () => {
 
         if (response.data.data && Array.isArray(response.data.data)) {
           const products = response.data.data;
-          const productCards = products.map((item) => (
+          const productCards = products.map((item: any) => (
             <SingleProductCard key={item.id} item={item} />
           ));
           setProductCards(productCards);
@@ -45,7 +46,7 @@ const ShopMainArea = () => {
     };
   }, [currentPage]); // Mettre à jour les produits lorsque la page courante change
 
-  const handlePageChange = (e, page) => {
+  const handlePageChange = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, page: React.SetStateAction<number>) => {
     e.preventDefault(); // Empêcher le rechargement de la page
     setCurrentPage(page);
   };

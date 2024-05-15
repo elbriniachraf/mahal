@@ -10,7 +10,7 @@ interface propsType {
   vendorId: string;
 }
 const VendorProfile = ({ vendorId }: propsType) => {
-  const [vendorInfo, setVendorInfo] = useState(null);
+  const [vendorInfo, setVendorInfo] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -27,7 +27,6 @@ const VendorProfile = ({ vendorId }: propsType) => {
         
         setLoading(false);
       } catch (error) {
-        setError(error.message);
         setLoading(false);
       }
     };
@@ -78,7 +77,7 @@ const VendorProfile = ({ vendorId }: propsType) => {
               <div className="col-xl-8 col-12">
                 <div className="vendor_description">
                   <p>
-Au cœur du centre-ville, une boutique de vêtements élégante attire l'attention avec ses vitrines sophistiquées et son ambiance accueillante. À l'intérieur, une sélection soigneusement organisée de vêtements pour hommes et femmes offre un mélange éclectique de styles, tandis que le personnel attentif et passionné est prêt à offrir des conseils personnalisés.</p>
+Au cœur du centre-ville, une boutique de vêtements élégante attire l attention avec ses vitrines sophistiquées et son ambiance accueillante. À l intérieur, une sélection soigneusement organisée de vêtements pour hommes et femmes offre un mélange éclectique de styles, tandis que le personnel attentif et passionné est prêt à offrir des conseils personnalisés.</p>
                 </div>
               </div>
               <div className="col-xl-2 col-12">

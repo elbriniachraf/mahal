@@ -3,72 +3,86 @@ export const filterCategoryData:filterCategoryType[] = [
     {
       id:1,
       category:"Shirts",
-      total:44
+      total:44,
+      name:""
     },
     {
       id:9,
       category:"T-Shirts",
-      total:44
+      total:44,
+      name:""
     },
     {
       id:2,
       category:"Pants",
-      total:55
+      total:55,
+      name:""
     },
     {
       id:3,
       category:"Jackets",
-      total:20
+      total:20,
+      name:""
     },
     {
       id:4,
       category:"Shose",
-      total:10
+      total:10,
+      name:""
     },
     {
       id:5,
       category:"Watch",
-      total:13
+      total:13,
+      name:""
     },
     {
       id:6,
       category:"Sunglass",
-      total:14
+      total:14,
+      name:""
     },
     {
       id:7,
       category:"Bag",
-      total:42
+      total:42,
+      name:""
     },
     {
       id:10,
       category:"Blazer",
-      total:42
+      total:42,
+      name:""
     },
     {
       id:8,
       category:"Ring",
-      total:56
+      total:56,
+      name:""
     },
     {
       id:11,
       category:"Bodysuits",
-      total:42
+      total:42,
+      name:""
     },
     {
       id:12,
       category:"Baby Collection",
-      total:42
+      total:42,
+      name:""
     },
     {
       id:13,
       category:"Coat",
-      total:42
+      total:42,
+      name:""
     },
     {
       id:14,
       category:"Cap",
-      total:42
+      total:42,
+      name:""
     },
     
   ]

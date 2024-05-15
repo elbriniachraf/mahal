@@ -7,7 +7,7 @@ import GetRating from "@/hooks/GetRatting";
 interface propsType {
   item: vendorType;
 }
-const SingleVendorCard = ({ item }: propsType) => {
+const SingleVendorCard = ({ item }: any) => {
   return (
     <>
       <div className="creator-single mb-30">
