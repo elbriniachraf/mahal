@@ -1,11 +1,12 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SingleProductCard from "../SharedComponents/SingleProductCard";
 import { useSearchForVendor } from "@/hooks/useSearch";
 import FilterHeaderCommon from "../SharedComponents/Sidebars/FilterHeaderCommon";
 import { useFilterByVendor } from "@/hooks/useFilterByVendor";
 import SidebarFilterMainTwo from "../ShopSidebarFiveCols/subComponents/filterTwo/SidebarFilterMainTwo";
 import Pagination from "./Pagination";
+import axios from "axios";
 interface propsType {
   vendorId: string;
 }
@@ -13,6 +14,31 @@ const ShopMainAreaVendor = ({ vendorId }: propsType) => {
   const filterData = useFilterByVendor(vendorId);
   const searchData = useSearchForVendor(vendorId as string);
   const mapData = searchData?.length ? searchData : filterData;
+
+  const [vendorInfo, setVendorInfo] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchVendorInfo = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/vendors/${vendorId}`);
+       
+        const data = response.data;
+        setVendorInfo(data);
+
+
+        console.log(vendorInfo);
+        
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchVendorInfo();
+  }, [vendorId]);
   return (
     <>
       <div className="shop-main-area pb-10">
@@ -26,7 +52,7 @@ const ShopMainAreaVendor = ({ vendorId }: propsType) => {
                 <FilterHeaderCommon />
                 <div className="products-wrapper products-5-column">
                   <>
-                    {mapData?.map((item) => (
+                    {vendorInfo?.products.map((item) => (
                       <SingleProductCard key={item.id} item={item} />
                     ))}
                   </>

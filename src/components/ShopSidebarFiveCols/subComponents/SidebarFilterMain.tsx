@@ -52,7 +52,7 @@ const SidebarFilterMain: React.FC = () => {
               <form onSubmit={handleSearchSubmit}>
                 <input
                   type="text"
-                  placeholder="Search here.."
+                  placeholder="Search hehhre.."
                   value={searchQuery}
                   onChange={handleSearchInputChange}
                 />

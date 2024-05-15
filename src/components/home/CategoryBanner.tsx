@@ -16,18 +16,24 @@ const CategoryBanner = () => {
             <div className="col-xl-4 col-lg-6 col-md-6">
               <div className="category-banner-single mb-30 pos-rel">
                 <div className="category-banner-img">
-                  <Image style={{ width: "100%", height: "auto" }} src={banner1} alt="banner-img" />
+                <Image
+  src="https://mahalat.ma/wp-content/uploads/2023/12/gros-plan-portrait-belle-fille.jpg"
+  alt="banner-img"
+  width={510} // Replace yourWidth with the actual width of the image
+  height={300} // Replace yourHeight with the actual height of the image
+/>
+
                 </div>
                 <div className="category-banner-inner">
                   <div className="category-banner-content">
                     <Link href="/shop-sidebar-5-column" className="product-category">
-                      Man
+                      Mode Pour Elle
                     </Link>
                     <p className="category-short-desc">
-                      Fashion Collection - 2022
+                      Mahalat
                     </p>
                     <Link href="/shop-sidebar-5-column" className="border-btn">
-                      Shop Now
+                      Achetez maintenant
                     </Link>
                   </div>
                 </div>
@@ -36,18 +42,23 @@ const CategoryBanner = () => {
             <div className="col-xl-4 col-lg-6 col-md-6 order-xl-3">
               <div className="category-banner-single mb-30 pos-rel">
                 <div className="category-banner-img">
-                  <Image style={{ width: "100%", height: "auto" }} src={banner4} alt="banner-img" />
+                <Image
+  src="https://mahalat.ma/wp-content/uploads/2023/12/portrait-bebe-nouveau-ne-balancoire.jpg"
+  alt="banner-img"
+  width={510} // Replace yourWidth with the actual width of the image
+  height={300} // Replace yourHeight with the actual height of the image
+/>
                 </div>
                 <div className="category-banner-inner">
                   <div className="category-banner-content">
                     <Link href="/shop-sidebar-5-column" className="product-category">
-                      Women
+                      Kids
                     </Link>
                     <p className="category-short-desc">
-                      Winter Collection - 2022
+                    Mahalat
                     </p>
                     <Link href="/shop-sidebar-5-column" className="border-btn">
-                      Shop Now
+                      Achetez maintenant
                     </Link>
                   </div>
                 </div>
@@ -58,16 +69,21 @@ const CategoryBanner = () => {
                 <div className="col-xl-12 col-lg-6 col-md-6">
                   <div className="category-banner-single mb-30 pos-rel">
                     <div className="category-banner-img">
-                      <Image style={{ width: "100%", height: "auto" }} src={banner2} alt="banner-img" />
+                    <Image
+  src="https://mahalat.ma/wp-content/uploads/2023/12/concept-menuiserie-metier-bricoleur.jpg"
+  alt="banner-img"
+  width={510} // Replace yourWidth with the actual width of the image
+  height={300} // Replace yourHeight with the actual height of the image
+/>
                     </div>
                     <div className="category-banner-inner align-items-end">
                       <div className="category-banner-content">
                         <Link href="/shop-sidebar-5-column" className="product-category">
-                          Kids Collection
+                         Material pro
                         </Link>
-                        <p className="category-short-desc">Trending - 2022</p>
+                        <p className="category-short-desc">Mahalat</p>
                         <Link href="/shop-sidebar-5-column" className="border-btn">
-                          Shop Now
+                          Achetez maintenant
                         </Link>
                       </div>
                     </div>
@@ -76,18 +92,23 @@ const CategoryBanner = () => {
                 <div className="col-xl-12 col-lg-6 col-md-6">
                   <div className="category-banner-single mb-30 pos-rel">
                     <div className="category-banner-img">
-                      <Image style={{ width: "100%", height: "auto" }} src={banner3} alt="banner-img" />
+                    <Image
+  src="https://mahalat.ma/wp-content/uploads/2024/01/disposition-compte-gouttes-produits-pour-peau.jpg"
+  alt="banner-img"
+  width={510} // Replace yourWidth with the actual width of the image
+  height={300} // Replace yourHeight with the actual height of the image
+/>
                     </div>
                     <div className="category-banner-inner justify-content-end">
                       <div className="category-banner-content">
                         <Link href="/shop-sidebar-5-column" className="product-category">
-                          Cosmetics
+                        Cosmétique
                         </Link>
                         <p className="category-short-desc">
-                          Fashion Collection - 2022
+                        Mahalat
                         </p>
                         <Link href="/shop-sidebar-5-column" className="border-btn">
-                          Shop Now
+                          Achetez maintenant
                         </Link>
                       </div>
                     </div>

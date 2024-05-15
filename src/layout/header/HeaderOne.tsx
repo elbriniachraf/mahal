@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
-import logoImg from "../../../public/assets/img/logo/logo-bl-p.png";
+import logoImg from "../../../public/assets/img/logo_m.png";
 import Image from "next/image";
 import Menu from "./components/Menu";
 import useGlobalContext from "@/hooks/use-context";
@@ -15,6 +15,7 @@ import SearchHeaderOne from "./components/SearchHeaderOne";
 import { useRouter } from "next/navigation";
 import SupportIcon from "@/svg/SupportIcon";
 import SupportIconWithHeadphone from "@/svg/SupportIconWithHeadphone";
+import axios from 'axios';
 const HeaderOne = () => {
   const [open, setOpen] = useState(true);
   const router = useRouter();
@@ -37,6 +38,21 @@ const HeaderOne = () => {
   const handleCompare = () => {
     router.push("/compare");
   };
+  const [categories, setCategories] = useState([]);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/api/categories'); // Modifier l'URL de l'API selon votre configuration
+      setCategories(response.data.categories);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories(); // Appeler la fonction pour récupérer les catégories au chargement du composant
+  }, []);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const currentRef = searchRef.current as HTMLElement | null;
@@ -52,7 +68,8 @@ const HeaderOne = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+
+  },[])
 
   return (
     <>
@@ -62,7 +79,7 @@ const HeaderOne = () => {
           style={{ display: open ? "block" : "none" }}
         >
           <p>
-            Further reductions: enjoy an extra <span>20%</span> off our Sale and
+            Further reductionddds: enjoy an extra <span>20%</span> off our Sale and
             free home delivery
           </p>
           <span onClick={() => setOpen(!open)} className="note-close-btn">
@@ -75,17 +92,17 @@ const HeaderOne = () => {
               <div className="col-xl-6 col-lg-6 col-md-6">
                 <div className="header-top-link">
                   <Link href="/about" className="text-btn">
-                    About Us
+                    A propos de Nous
                   </Link>
                   <Link href="/profile" className="text-btn">
-                    My account
+                   Mon Compte
                   </Link>
                 </div>
               </div>
               <div className="col-xl-6 col-lg-6 col-md-6">
                 <div className="header-top-right">
                   <Link href="/track-order" className="text-btn">
-                    Track Order
+                    Suivre Mon Ordre
                   </Link>
                   <NiceSelectTwo
                     options={language_data}
@@ -246,41 +263,18 @@ const HeaderOne = () => {
                     <span></span>
                     <span></span>
                   </div>
-                  <span>Category</span>
+                  <span>Categories</span>
                 </div>
                 <div
                   className="category-items"
                   style={{ display: openCategory ? "block" : "none" }}
                 >
-                  <Link href="/shop" className="category-item">
-                    <div className="category-name">Shirts</div>{" "}
-                    <span className="category-items-number">8</span>
-                  </Link>
-                  <Link href="/shop" className="category-item">
-                    <div className="category-name">Pants</div>{" "}
-                    <span className="category-items-number">12</span>
-                  </Link>
-                  <Link href="/shop" className="category-item">
-                    <div className="category-name">Jackets</div>{" "}
-                    <span className="category-items-number">17</span>
-                  </Link>
-                  <Link href="/shop" className="category-item">
-                    <div className="category-name">Leggings</div>{" "}
-                    <span className="category-items-number">6</span>
-                  </Link>
-                  <Link href="/shop" className="category-item">
-                    <div className="category-name">Beachware</div>{" "}
-                    <span className="category-items-number">25</span>
-                  </Link>
-                  <Link href="/shop" className="category-item">
-                    <div className="category-name">Underwear</div>{" "}
-                    <span className="category-items-number">17</span>
-                  </Link>
-
-                  <Link href="/shop" className="category-item">
-                    <div className="category-name">Belt</div>{" "}
-                    <span className="category-items-number">9</span>
-                  </Link>
+                  {categories.map(category => (
+                    <Link key={category.id} href={`/category/${category.slug}`} className="category-item">
+                      <div className="category-name">{category.name}</div>{" "}
+                      {/* Vous pouvez également afficher le nombre d'articles pour chaque catégorie si nécessaire */}
+                    </Link>
+                  ))}
                 </div>
               </div>
               <SearchHeaderOne />
@@ -291,7 +285,7 @@ const HeaderOne = () => {
                   </div>
                   <div className="irc-item-content">
                     <div className="support-number">
-                      <Link href="tel:555-900-888">555 - 900 - 888</Link>
+                      <Link href="tel:555-900-888">+212610868038</Link>
                     </div>
                     <p>24/7 Support Center</p>
                   </div>

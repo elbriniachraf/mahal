@@ -51,7 +51,7 @@ const menu_data: MenuType[] = [
     pluseIncon: true,
     link: "#",
     submenus: [
-      { title: "About", link: "/about" },
+      { title: "About Ussss", link: "/about" },
       { title: "Become Vendor", link: "/become-vendor" },
       { title: "Create Vendor Account", link: "/create-vendor-account" },
       { title: "Vendors List", link: "/vendors-list" },

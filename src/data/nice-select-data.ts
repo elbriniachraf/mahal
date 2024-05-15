@@ -29,29 +29,22 @@ export const sortProduct_data:NiceSelcetType[] = [
 export const language_data:NiceSelcetType[] = [
     {
         id:1,
-        option:"English",
+        option:"Francais",
     },
     {
         id:2,
-        option:"Hindi",
+        option:"English",
     },
     {
         id:3,
         option:"Arabic",
     },
-    {
-        id:4,
-        option:"Bengali",
-    },
-    {
-        id:5,
-        option:"French",
-    },
+  
 ]
 export const currency_data:NiceSelcetType[] = [
     {
         id:1,
-        option:"USD",
+        option:"MAD",
     },
     {
         id:2,
@@ -59,12 +52,9 @@ export const currency_data:NiceSelcetType[] = [
     },
     {
         id:3,
-        option:"JPY",
+        option:"USD",
     },
-    {
-        id:4,
-        option:"GBP",
-    },
+  
 ]
 
 export const GenderData:NiceSelcetType[] = [

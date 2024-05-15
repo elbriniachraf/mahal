@@ -1,12 +1,12 @@
- 
-"use client";
-import { filterCategoryData } from "@/data/category-filter-data";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import useGlobalContext from "@/hooks/use-context";
 import { filterCategoryType } from "@/interFace/interFace";
-import React, { useState } from "react";
+
 const FilterByCategoryTwo = () => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
+  const [categories, setCategories] = useState<filterCategoryType[]>([]);
   const {
     setFilterBrand,
     setFilterSize,
@@ -17,6 +17,20 @@ const FilterByCategoryTwo = () => {
     setSelectData,
     setFilterRange,
   } = useGlobalContext();
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/categories");
+        setCategories(response.data.categories);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   const handleFilterCategory = (item: filterCategoryType) => {
     setFilterSize([]);
     setFilterBrand([]);
@@ -26,7 +40,7 @@ const FilterByCategoryTwo = () => {
     setFilterCategory(item?.category);
     setSelectData("");
     setFilterRange([]);
-    setActive(item.id)
+    setActive(item.id);
   };
 
   return (
@@ -42,14 +56,16 @@ const FilterByCategoryTwo = () => {
           className={`filter-widget-content ${open ? "content-hidden" : ""}`}
         >
           <div className="category-items">
-            {filterCategoryData?.map((item) => (
+            {categories.map((item) => (
               <button
                 onClick={() => handleFilterCategory(item)}
                 key={item?.id}
                 type="button"
-                className={`category-item ${active === item.id ? "active-category": ""}`}
+                className={`category-item ${
+                  active === item.id ? "active-category" : ""
+                }`}
               >
-                <div className="category-name">{item?.category}</div>{" "}
+                <div className="category-name">{item?.name}</div>{" "}
                 <span className="category-items-number">{item?.total}</span>
               </button>
             ))}

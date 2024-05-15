@@ -74,7 +74,7 @@ const SearchHeaderOne = () => {
       >
         <input
           type="text"
-          placeholder="Search Products....."
+          placeholder="Chercher Des Produits....."
           value={searchQuery}
           onChange={handleSearchInputChange}
         />

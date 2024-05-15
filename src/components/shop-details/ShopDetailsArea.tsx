@@ -4,7 +4,7 @@ import { ProductColor, ProductsType, idType } from "@/interFace/interFace";
 import Image, { StaticImageData } from "next/image";
 import ReactImageMagnify from "react-image-magnify";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import reviewOne from "../../../public/assets/img/testimonial/course-reviews-1.png";
 import reviewTwo from "../../../public/assets/img/testimonial/course-reviews-2.png";
 import reviewThree from "../../../public/assets/img/testimonial/course-reviews-3.png";
@@ -21,7 +21,9 @@ import ModalVideo from "react-modal-video";
 import TimerWrapper from "@/utils/TimerWrapper";
 import { getColorClass } from "@/hooks/condition-class";
 import ReviewForm from "@/form/ReviewForm";
+import axios from "axios";
 const ShopDetailsArea = ({ id }: idType) => {
+  const [product, setProduct] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const openVideoModal = () => setIsOpen(!isOpen);
   const dispatch = useDispatch();
@@ -43,6 +45,19 @@ const ShopDetailsArea = ({ id }: idType) => {
 
     setactiveBorder(index);
   };
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/products/${id}`);
+        setProduct(response.data.product);
+      } catch (error) {
+      
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
   const cartProducts = useSelector(
     (state: RootState) => state.cart.cartProducts
   );
@@ -105,8 +120,8 @@ const ShopDetailsArea = ({ id }: idType) => {
                                       className="active"
                                       src={
                                         productImg
-                                          ? productImg
-                                          : item?.productImg
+                                          ? product?.product_images[0].image_url
+                                          : product?.product_images[0].image_url
                                       }
                                       alt="product-img"
                                     />
@@ -181,8 +196,11 @@ const ShopDetailsArea = ({ id }: idType) => {
                           <div className="ecomart-img-wrap">
                             <Image
                               className="active"
-                              src={item?.productImg}
+                              src={product?.product_images[0].image_url}
                               alt="product-img"
+                              width={500}
+                              height={500}
+                              
                             />
                           </div>
                           <div className="ecomart-zoom-img-wrapper">
@@ -192,10 +210,10 @@ const ShopDetailsArea = ({ id }: idType) => {
                                   smallImage={{
                                     alt: "Wristwatch by Ted Baker London",
                                     isFluidWidth: true,
-                                    src: item?.productImg.src,
+                                    src:product?.product_images[0].image_url,
                                   }}
                                   largeImage={{
-                                    src: item?.productImg.src,
+                                    src: product?.product_images[0].image_url,
                                     width: 1200,
                                     height: 1800,
                                   }}
@@ -340,8 +358,8 @@ const ShopDetailsArea = ({ id }: idType) => {
 
             <div className="col-lg-6">
               <div className="product-side-info mb-30">
-                <h4 className="product-name mb-10">{item?.title}</h4>
-                <span className="product-price mr-1">${item?.price}.00</span>
+                <h4 className="product-name mb-10">{product?.name}</h4>
+                <span className="product-price mr-1">${product?.price}.00</span>
                 {item?.oldPrice ? (
                   <>
                     <span className="price-old">£{item?.oldPrice}.00</span>{" "}
@@ -356,7 +374,7 @@ const ShopDetailsArea = ({ id }: idType) => {
 
                 <div className="product-ratting">
                   <ul>
-                    <GetRatting averageRating={item?.rating} /> 150 Ratings | 35
+                    <GetRatting averageRating={product?.rating} /> 150 Ratings | 35
                     Reviews
                   </ul>
                 </div>
@@ -366,9 +384,9 @@ const ShopDetailsArea = ({ id }: idType) => {
                     <li>
                       {" "}
                       Brand:{" "}
-                      <span className="text-success">{item?.brand},</span>{" "}
+                      <span className="text-success">{product?.brand},</span>{" "}
                       Category:{" "}
-                      <span className="text-success">{item?.category}</span>{" "}
+                      <span className="text-success">{product?.status}</span>{" "}
                     </li>
                   </ul>
                 </div>
@@ -386,12 +404,8 @@ const ShopDetailsArea = ({ id }: idType) => {
                 ) : (
                   <></>
                 )}
-                <p className="mb-30">
-                  Matent maecenas nec massa viverra aci ute litora aliquam
-                  habitant proin commodo bibendum rutru habitant est magnis
-                  quisque aliquet congue vesti bulum suscipi erose tellus odio
-                  elite purus feugiat prim libero senes nisie gravia
-                </p>
+                  <p className="mb-30" dangerouslySetInnerHTML={{ __html: product?.description }}></p>
+              
                 {item?.totalProduct && item?.totalProduct > 0 ? (
                   <>
                     <div className="available-sizes">
@@ -571,16 +585,8 @@ const ShopDetailsArea = ({ id }: idType) => {
                 <div className="tab-pane fade" id="nav-general" role="tabpanel">
                   <div className="tabs-wrapper mt-35">
                     <div className="product__details-des">
-                      <p>
-                        Very clean and organized with easy to follow tutorials,
-                        Exercises, and solutions. This course does start from
-                        the beginning with very little knowledge and gives a
-                        great overview of common tools used for data science and
-                        progresses into more complex concepts and ideas. This
-                        course is amazing..! I started this course as a beginner
-                        and learnt a lot. Instructors are great. Query handling
-                        can be improved.Overall very happy with the course.
-                      </p>
+                    <p dangerouslySetInnerHTML={{ __html: product?.description }}></p>
+
                     </div>
                   </div>
                 </div>

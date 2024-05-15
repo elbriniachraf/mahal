@@ -43,7 +43,7 @@ const HeaderTwo = () => {
           style={{ display: open ? "block" : "none" }}
         >
           <p>
-            Further reductions: enjoy an extra <span>20%</span> off our Sale and
+            Further reductionsddd: enjoy an extra <span>20%</span> off our Sale and
             free home delivery
           </p>
           <span onClick={() => setOpen(!open)} className="note-close-btn">

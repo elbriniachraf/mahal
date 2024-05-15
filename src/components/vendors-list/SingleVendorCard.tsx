@@ -14,17 +14,18 @@ const SingleVendorCard = ({ item }: propsType) => {
         <div className="creator-wraper">
           <div className="creator-inner">
             <div className="creator-cover-img pos-rel">
-              <Image src={item?.vendorBanner} alt="cover-img" />
+              <Image src={item?.banner_cloudinary} alt="cover-img" width={500} height={300} />
             </div>
             <div className="creator-content pos-rel">
               <div className="creator-info">
                 <div className="profile-img pos-rel oction-creator-profile-img">
-                  <Link href={`/vendor-details/${item?.vendorId}`}>
+                  <Link href={`/vendor-details/${item?.id}`}>
                     <Image
                       width={65}
                       height={65}
-                      style={{ width: "auto", height: "100%" }}
-                      src={item?.vendorImg}
+                      style={{ height: "100%" }}
+                      src={item?.gravatar_cloudinary}
+                      
                       alt="cover-img"
                     />
                   </Link>
@@ -34,19 +35,19 @@ const SingleVendorCard = ({ item }: propsType) => {
                     </div>
                   )}
                 </div>
-                <h4 className="artist-name">{item?.vendor}</h4>
+                <h4 className="artist-name">{item?.store_name}</h4>
                 <h4 className="artist-name">
-                  <GetRating averageRating={item?.averageRating} />
+                  <GetRating averageRating={5} />
                 </h4>
               </div>
               <div className="artist-meta-info">
                 <div className="artist-meta-item artist-meta-item-border">
                   <div className="artist-meta-type">Items</div>
-                  <div className="artist-created">{item?.Items}</div>
+                  <div className="artist-created">{item?.num_products}</div>
                 </div>
                 <div className="artist-meta-item artist-meta-item-border">
                   <div className="artist-meta-type">Sells</div>
-                  <div className="artist-follwers">{item?.Sells}</div>
+                  <div className="artist-follwers">100</div>
                 </div>
                 <div className="artist-meta-item">
                   <div className="artist-meta-type">Vendor</div>
@@ -55,7 +56,7 @@ const SingleVendorCard = ({ item }: propsType) => {
               </div>
               <div className="artist-follow-btn">
                 <Link
-                  href={`/vendor-details/${item?.vendorId}`}
+                  href={`/vendor-details/${item?.id}`}
                   className="fill_btn_two"
                 >
                   Visit Store

@@ -8,7 +8,7 @@ import SidebarMain from '../SharedComponents/Sidebars/SidebarMain';
 const ShopSidebarFiveMain = () => {
     return (
         <>
-            <BreadCrumb title='Shop'/>
+            <BreadCrumb title='Tous Les Produits'/>
             <ShopMainArea/>
             <SidebarMain />
         </>

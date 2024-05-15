@@ -60,7 +60,7 @@ const SidebarFilter = () => {
                   <form onSubmit={handleSearchSubmit}>
                     <input
                       type="text"
-                      placeholder="Search here.."
+                      placeholder="Search herek.."
                       value={searchQuery}
                       onChange={handleSearchInputChange}
                     />

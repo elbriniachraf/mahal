@@ -1,3 +1,5 @@
+
+"use client"
 import ProductModal from "@/components/SharedComponents/ProductModal";
 import ShopSidebarFiveMain from "@/components/ShopSidebarFiveCols/ShopSidebarFiveMain";
 import MetaData from "@/hooks/useMetaData";

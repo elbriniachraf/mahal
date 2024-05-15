@@ -56,7 +56,7 @@ const HeaderThree = () => {
               <div className="col-xl-6 col-lg-6 col-md-6">
                 <div className="header-top-link">
                   <Link href="/about" className="text-btn">
-                    About Us
+                    About Usq
                   </Link>
                   <Link href="/register" className="text-btn">
                     My account

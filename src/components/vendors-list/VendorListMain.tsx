@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import BreadCrumb from '../SharedComponents/BreadCrumb';
 import Vendors from './Vendors';
