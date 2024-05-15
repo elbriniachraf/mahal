@@ -28,7 +28,7 @@ const ShopDetailsArea = ({ id }: idType) => {
   const [isOpen, setIsOpen] = useState(false);
   const openVideoModal = () => setIsOpen(!isOpen);
   const dispatch = useDispatch();
-  const item = products_data?.find((itm) => itm.id == id) as ProductsType;
+  const item = products_data?.find((itm:any) => itm.id == id) as ProductsType;
   const [sizeNumber, setSizeNumber] = useState<number>(0);
   const [size, setSize] = useState<string>(item?.sizeArray?.[0] as string);
   // normal img selection
