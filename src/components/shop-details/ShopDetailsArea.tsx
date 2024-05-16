@@ -50,7 +50,7 @@ const ShopDetailsArea = ({ id }: idType) => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/products/${id}`);
+        const response = await axios.get(`hhttps://elbriniachraf.com/api/products/${id}`);
         setProduct(response.data.product);
       } catch (error) {
       

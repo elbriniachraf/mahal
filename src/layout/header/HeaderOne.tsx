@@ -42,7 +42,7 @@ const HeaderOne = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/categories'); // Modifier l'URL de l'API selon votre configuration
+      const response = await axios.get('https://elbriniachraf.com/api/categories'); // Modifier l'URL de l'API selon votre configuration
       setCategories(response.data.categories);
     } catch (error) {
       console.error('Error fetching categories:', error);

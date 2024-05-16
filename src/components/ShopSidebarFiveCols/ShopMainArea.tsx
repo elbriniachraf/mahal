@@ -18,7 +18,7 @@ const ShopMainArea = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/products?page=${currentPage}`);
+        const response = await axios.get(`https://elbriniachraf.com/api/products?page=${currentPage}`);
 
         if (response.data.data && Array.isArray(response.data.data)) {
           const products = response.data.data;

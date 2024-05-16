@@ -23,7 +23,7 @@ const FilterByCategory = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/categories");
+        const response = await axios.get("https://elbriniachraf.com/api/categories");
         setCategories(response.data.categories); // Supposons que votre réponse renvoie un tableau d'objets de type filterCategoryType
       } catch (error) {
         console.error("Error fetching categories:", error);

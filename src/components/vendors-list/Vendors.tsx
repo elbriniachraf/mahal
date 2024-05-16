@@ -9,7 +9,7 @@ const Vendors = () => {
   useEffect(() => {
     const fetchVendors = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/vendors");
+        const response = await fetch("https://elbriniachraf.com/api/vendors");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -28,7 +28,7 @@ const Vendors = () => {
   const handlePageChange = async (e:any, page:any) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/vendors?page=${page}`);
+      const response = await fetch(`https://elbriniachraf.com/api/vendors?page=${page}`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }

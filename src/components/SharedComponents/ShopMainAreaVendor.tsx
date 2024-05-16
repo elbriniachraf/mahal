@@ -23,7 +23,7 @@ const ShopMainAreaVendor = ({ vendorId }: propsType) => {
   useEffect(() => {
     const fetchVendorInfo = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/vendors/${vendorId}`);
+        const response = await axios.get(`https://elbriniachraf.com/api/vendors/${vendorId}`);
        
         const data = response.data;
         setVendorInfo(data);
