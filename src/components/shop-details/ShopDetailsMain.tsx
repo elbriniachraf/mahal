@@ -9,7 +9,6 @@ import SidebarMain from "../SharedComponents/Sidebars/SidebarMain";
 const ShopDetailsMain = ({ id }: idType) => {
   return (
     <>
-      <BreadCrumb title="Shop Details" />
       <ShopDetailsArea id={id} />
       <RelatedProductSlider id={id} />
      

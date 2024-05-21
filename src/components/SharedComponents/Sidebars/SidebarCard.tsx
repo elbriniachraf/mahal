@@ -4,21 +4,73 @@ import { remove_cart_product } from "@/redux/slices/cartSlice";
 import { RootState } from "@/redux/store";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 
 const SidebarCard = () => {
   const { sideCartOpen, setSideCartOpen } = useGlobalContext();
   const dispatch = useDispatch();
+
+  const [totalPrice, setTotalPrice] = useState(0);
   const cartProducts = useSelector(
     (state: RootState) => state.cart.cartProducts
   );
-  const totalPrice = cartProducts.reduce(
-    (total, product) => total + (product?.price ?? 0) * (product?.totalCart ?? 0),
-    0
-  );
+  const [itemsPanier, setItemsPanier] = useState([]);
 
+
+
+  const getUserIP = async () => {
+    try {
+      const response = await axios.get('https://api.ipify.org?format=json');
+      return response.data.ip;
+    } catch (error) {
+      console.error("Could not retrieve user IP address:", error);
+      return null;
+    }
+  };
+
+  const getPanierData = async (userIP:any) => {
+    try {
+      const response = await axios.post('https://elbriniachraf.com/api/getPanierData', { user_ip: userIP });
+      return response.data.cart_items;
+    } catch (error) {
+      console.error("Could not retrieve cart data:", error);
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    const fetchCartData = async () => {
+      const userIP = await getUserIP();
+      if (userIP) {
+        const cartItems = await getPanierData(userIP);
+        setItemsPanier(cartItems);
+        calculateTotalPrice()
+      }
+    };
+
+    fetchCartData();
+  }, [dispatch]);
+
+  const calculateTotalPrice = () => {
+    let totalPrice = 0;
+  
+    // Pour chaque élément du panier
+    itemsPanier.forEach((item:any) => {
+      // Calculer le prix total de l'article en multipliant la quantité par le prix
+      const itemTotalPrice = item?.cart_item.quantity * item?.product[0].price;
+  
+      // Ajouter le prix total de l'article au prix total du panier
+      totalPrice += itemTotalPrice;
+
+      setTotalPrice(totalPrice);
+    });
+  
+    // Retourner le prix total du panier
+    return totalPrice.toFixed(2);
+  };
+  
   return (
     <>
       <div className="fix">
@@ -33,29 +85,30 @@ const SidebarCard = () => {
           >
             Close<i className="fal fa-times"></i>
           </button>
-          <h4 className="sidebar-action-title">Shopping Cart</h4>
+          <h4 className="sidebar-action-title">Panier d'achat</h4>
           <div className="sidebar-action-list">
-            {cartProducts?.length ? (
+            {itemsPanier.length ? (
               <>
-                {cartProducts?.map((item,index) => {
+                {itemsPanier.map((item:any, index:number) => {
                   const productPrice =
-                    (item.price ?? 0) * (item.totalCart ?? 0);
+                    (item.price ?? 0) * (item.quantity ?? 0);
                   return (
                     <div key={index} className="sidebar-list-item">
                       <div className="product-image pos-rel">
                         <Link href="/shop-sidebar-5-column" className="">
-                          <Image src={item?.productImg} alt="img" />
+                          <Image src={item?.product[0].product_images[0].image_url} alt="img"  width={200} height={200}/>
                         </Link>
                       </div>
                       <div className="product-desc">
                         <div className="product-name">
-                          <Link href="/shop-sidebar-5-column"> {item?.title} </Link>
+                          <Link href="/shop-sidebar-5-column"> {item?.product[0].name} </Link>
                         </div>
                         <div className="product-pricing">
                           <span className="item-number">
-                            {item?.totalCart} &times;
+                            {item?.cart_item.quantity} &times;
                           </span>
-                          <span className="price-now">${productPrice}.00</span>
+                          <span className="price-now">${(item?.cart_item.quantity * item?.product[0].price).toFixed(2)}</span>
+
                         </div>
                         <button
                           onClick={() => dispatch(remove_cart_product(item))}
@@ -69,31 +122,27 @@ const SidebarCard = () => {
                 })}
               </>
             ) : (
-              <></>
+              <p className="text-center pt-20">Votre panier est vide</p>
             )}
           </div>
-          {cartProducts?.length ? (
+          {itemsPanier.length ? (
             <>
               <div className="product-price-total">
-                <span>Subtotal :</span>
+                <span>Sous-total :</span>
                 <span className="subtotal-price">
                   ${totalPrice ? totalPrice : 0}.00
                 </span>
               </div>
               <div className="sidebar-action-btn">
                 <Link onClick={() => setSideCartOpen(!sideCartOpen)} href="/cart" className="fill-btn">
-                  View cart
+                  Authentitfier
                 </Link>
                 <Link onClick={() => setSideCartOpen(!sideCartOpen)} href="/checkout" className="border-btn">
-                  Checkout
+                  Commander
                 </Link>
               </div>
             </>
-          ) : (
-            <>
-              <p className="text-center pt-20">Your Cart Is Empty</p>
-            </>
-          )}
+          ) : null}
         </div>
       </div>
     </>

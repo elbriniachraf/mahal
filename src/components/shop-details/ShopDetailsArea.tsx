@@ -22,6 +22,7 @@ import TimerWrapper from "@/utils/TimerWrapper";
 import { getColorClass } from "@/hooks/condition-class";
 import ReviewForm from "@/form/ReviewForm";
 import axios from "axios";
+import Swal from "sweetalert2";
 const ShopDetailsArea = ({ id }: idType) => {
   const [product, setProduct] = useState<any>(null);
 
@@ -127,31 +128,25 @@ const ShopDetailsArea = ({ id }: idType) => {
         user_ip: userIP,
       };
   
-      await axios.post('https://elbriniachraf.com/cart', data);
+      const response = await axios.post('https://elbriniachraf.com/api/cart', data);
       console.log("Product added to cart successfully");
   
+     // Extraire le message de la réponse
+     const message = response.data.message;
+
+     // Afficher l'alerte en fonction du message de la réponse
+     Swal.fire({
+       icon: 'success',
+       title: 'Success!',
+       text: message,
+     });
+ 
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        // Axios specific error
-        if (error.response) {
-           
-          // Server responded with a status other than 200 range
-          console.error("Error response data:", error.response.data);
-          console.error("Error response status:", error.response.status);
-          console.error("Error response headers:", error.response.headers);
-        } else if (error.request) {
-          // Request was made but no response was received
-          console.error("Error request:", error.request);
-        } else {
-          // Something happened in setting up the request
-          console.error("Error message:", error.message);
-        }
-      } else {
-        // Non-Axios error
-        console.error("General error:", error);
-      }
+      // Gérer les erreurs
+      console.error("Error:", error);
     }
   };
+  
   
 
   return (
@@ -422,7 +417,7 @@ const ShopDetailsArea = ({ id }: idType) => {
             <div className="col-lg-6">
               <div className="product-side-info mb-30">
                 <h4 className="product-name mb-10">{product?.name}</h4>
-                <span className="product-price mr-1">${product?.price}.00</span>
+                <span className="product-price mr-1"> MAD {product?.price}</span>
                 {item?.oldPrice ? (
                   <>
                     <span className="price-old">£{item?.oldPrice}.00</span>{" "}
