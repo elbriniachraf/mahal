@@ -134,6 +134,7 @@ const ShopDetailsArea = ({ id }: idType) => {
       if (axios.isAxiosError(error)) {
         // Axios specific error
         if (error.response) {
+           
           // Server responded with a status other than 200 range
           console.error("Error response data:", error.response.data);
           console.error("Error response status:", error.response.status);
