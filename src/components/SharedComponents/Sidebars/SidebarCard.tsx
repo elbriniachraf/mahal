@@ -22,7 +22,7 @@ const SidebarCard = () => {
 
   const getUserIP = async () => {
     try {
-      const response = await axios.get('https://api.ipify.org?format=json');
+      const response = await axios.get("https://api.ipify.org?format=json");
       return response.data.ip;
     } catch (error) {
       console.error("Could not retrieve user IP address:", error);
@@ -32,7 +32,7 @@ const SidebarCard = () => {
 
   const getPanierData = async (userIP:any) => {
     try {
-      const response = await axios.post('https://elbriniachraf.com/api/getPanierData', { user_ip: userIP });
+      const response = await axios.post("https://elbriniachraf.com/api/getPanierData", { user_ip: userIP });
       return response.data.cart_items;
     } catch (error) {
       console.error("Could not retrieve cart data:", error);
@@ -68,7 +68,7 @@ const SidebarCard = () => {
           >
             Close<i className="fal fa-times"></i>
           </button>
-          <h4 className="sidebar-action-title">Panier d'achat</h4>
+          <h4 className="sidebar-action-title">Panier d achat</h4>
           <div className="sidebar-action-list">
             {itemsPanier.length ? (
               <>
