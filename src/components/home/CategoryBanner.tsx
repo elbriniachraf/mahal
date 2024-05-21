@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const CategoryBanner = () => {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<any>([]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -24,7 +24,7 @@ const CategoryBanner = () => {
     <div className="category-banner-area pt-30">
       <div className="container">
         <div className="row">
-          {categories.slice(0, 5).map((category, index) => (
+        {categories.slice(0, 5).map((category: any, index: number) => (
             <div
               key={category.id}
               className={`col-xl-4 col-lg-6 col-md-6 ${index === 1 ? "order-xl-3" : ""} ${index === 2 ? "order-xl-2" : ""}`}
