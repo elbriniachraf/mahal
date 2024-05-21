@@ -9,6 +9,8 @@ const OrderHistory = () => {
       <div className="table-responsive">
         <div>
           <p>
+
+            
             {" "}
             <strong>Order Id</strong> : 125426368579
           </p>

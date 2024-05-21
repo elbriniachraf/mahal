@@ -181,6 +181,7 @@ export interface CommentType {
   id: string;
   date: string;
   comment: string;
+
   email: string;
   name: string;
   postId: string;

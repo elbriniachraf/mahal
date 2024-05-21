@@ -46,11 +46,24 @@ const ShopDetailsArea = ({ id }: idType) => {
 
     setactiveBorder(index);
   };
-
+  const [quantity, setQuantity] = useState(1);
+  const handleQuantityChange = (type: string) => {
+    setQuantity((prevQuantity) =>
+      type === "increase" ? prevQuantity + 1 : Math.max(prevQuantity - 1, 1)
+    );
+  };
   useEffect(() => {
     const fetchProduct = async () => {
+      console.log("xxxxxxxxxxxxx");
+      
       try {
-        const response = await axios.get(`hhttps://elbriniachraf.com/api/products/${id}`);
+        console.log("ddddd");
+        
+        
+        const response = await axios.get(`https://elbriniachraf.com/api/products/${id}`);
+        console.log(response.data);
+        console.log(response.data.product);
+
         setProduct(response.data.product);
       } catch (error) {
       
@@ -58,12 +71,10 @@ const ShopDetailsArea = ({ id }: idType) => {
     };
 
     fetchProduct();
-  }, [id]);
+  }, []);
   const cartProducts = useSelector(
     (state: RootState) => state.cart.cartProducts
   );
-  const quantity = cartProducts.find((itm) => itm?.id === item?.id);
-  const totalCart = quantity?.totalCart ? quantity?.totalCart : 0;
 
   const handleActiveSize = (itm: string, id: number) => {
     setSizeNumber(id);
@@ -91,6 +102,56 @@ const ShopDetailsArea = ({ id }: idType) => {
   };
 
   //
+
+  const getUserIP = async () => {
+    try {
+      const response = await axios.get('https://api.ipify.org?format=json');
+      return response.data.ip;
+    } catch (error) {
+      console.error("Error getting IP address:", error);
+      return null;
+    }
+  };
+
+  const addToCart = async () => {
+    try {
+      const userIP = await getUserIP();
+      if (!userIP) {
+        console.error("Could not retrieve user IP address");
+        return;
+      }
+  
+      const data = {
+        product_id: product.id,
+        quantity,
+        user_ip: userIP,
+      };
+  
+      await axios.post('https://elbriniachraf.com/cart', data);
+      console.log("Product added to cart successfully");
+  
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        // Axios specific error
+        if (error.response) {
+          // Server responded with a status other than 200 range
+          console.error("Error response data:", error.response.data);
+          console.error("Error response status:", error.response.status);
+          console.error("Error response headers:", error.response.headers);
+        } else if (error.request) {
+          // Request was made but no response was received
+          console.error("Error request:", error.request);
+        } else {
+          // Something happened in setting up the request
+          console.error("Error message:", error.message);
+        }
+      } else {
+        // Non-Axios error
+        console.error("General error:", error);
+      }
+    }
+  };
+  
 
   return (
     <>
@@ -136,7 +197,7 @@ const ShopDetailsArea = ({ id }: idType) => {
                                             isFluidWidth: true,
                                             src: productImg
                                               ? productImg.src
-                                              : item?.productImg.src,
+                                              : product?.productImg.src,
                                           }}
                                           largeImage={{
                                             src: productImg
@@ -384,7 +445,7 @@ const ShopDetailsArea = ({ id }: idType) => {
                   <ul>
                     <li>
                       {" "}
-                      Brand:{" "}
+                      Brandd:{" "}
                       <span className="text-success">{product?.brand},</span>{" "}
                       Category:{" "}
                       <span className="text-success">{product?.status}</span>{" "}
@@ -407,9 +468,9 @@ const ShopDetailsArea = ({ id }: idType) => {
                 )}
                   <p className="mb-30" dangerouslySetInnerHTML={{ __html: product?.description }}></p>
               
-                {item?.totalProduct && item?.totalProduct > 0 ? (
+                {product?.stock_status=="instock"  ?(
                   <>
-                    <div className="available-sizes">
+                    {/* <div className="available-sizes">
                       <span>Select Sizes : </span>
                       <div className="product-available-sizes">
                         {item?.sizeArray?.map((itm, index) => (
@@ -467,14 +528,15 @@ const ShopDetailsArea = ({ id }: idType) => {
                       </>
                     ) : (
                       <></>
-                    )}
+                    )} */}
 
                     <div className="product-quantity-cart mb-25">
                       <div className="product-quantity-form">
                         <form onSubmit={(e) => e.preventDefault()}>
                           <button
-                            onClick={() => dispatch(decrease_quantity(item))}
+                            
                             className="cart-minus"
+                            onClick={() => handleQuantityChange("decrease")}
                           >
                             <i className="far fa-minus"></i>
                           </button>
@@ -482,34 +544,42 @@ const ShopDetailsArea = ({ id }: idType) => {
                             className="cart-input"
                             type="text"
                             readOnly
-                            value={totalCart ? totalCart : 0}
+                            value={quantity}
+                            
                           />
                           <button
-                            onClick={() => handleAddToCart(item)}
+                            
                             className="cart-plus"
+                            onClick={() => handleQuantityChange("increase")}
+                            
                           >
                             <i className="far fa-plus"></i>
                           </button>
                         </form>
                       </div>
                       <button
+                          
+
+                         
                         className="fill-btn"
-                        onClick={() => handleAddToCart(item)}
+                        onClick={() => addToCart()}
+                             
                       >
                         Add to Cart
                       </button>
                     </div>
+
                   </>
                 ) : (
                   <></>
                 )}
                 <div>
-                  {item?.totalProduct && item?.totalProduct > 0 ? (
+                  {product?.stock_status=="instock"  ? (
                     <>
                       <p>
-                        {item?.totalProduct && item?.totalProduct > 1
-                          ? `${item?.totalProduct} Pieces Available`
-                          : `${item?.totalProduct} Piece Available`}
+                        {product?.stock_status=="instock"  
+                          ? `${product?.totalProduct} Pieces Available`
+                          : `${product?.totalProduct} Piece Available`}
                       </p>
                     </>
                   ) : (
