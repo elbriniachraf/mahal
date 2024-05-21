@@ -46,30 +46,13 @@ const SidebarCard = () => {
       if (userIP) {
         const cartItems = await getPanierData(userIP);
         setItemsPanier(cartItems);
-        calculateTotalPrice()
+        
       }
     };
 
     fetchCartData();
   }, [dispatch]);
 
-  const calculateTotalPrice = () => {
-    let totalPrice = 0;
-  
-    // Pour chaque élément du panier
-    itemsPanier.forEach((item:any) => {
-      // Calculer le prix total de l'article en multipliant la quantité par le prix
-      const itemTotalPrice = item?.cart_item.quantity * item?.product[0].price;
-  
-      // Ajouter le prix total de l'article au prix total du panier
-      totalPrice += itemTotalPrice;
-
-      setTotalPrice(totalPrice);
-    });
-  
-    // Retourner le prix total du panier
-    return totalPrice.toFixed(2);
-  };
   
   return (
     <>
