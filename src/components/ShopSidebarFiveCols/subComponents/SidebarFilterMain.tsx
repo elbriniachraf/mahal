@@ -63,7 +63,8 @@ const SidebarFilterMain: React.FC = () => {
             </div>
           </div>
           
-          <FilterByCategory />
+          <FilterByCategory vendorId="-1
+          " />
           <FilterBySize />
           <FilterByRating />
           <FilterByColor />
