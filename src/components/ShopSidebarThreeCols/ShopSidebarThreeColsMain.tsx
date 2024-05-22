@@ -9,7 +9,7 @@ const ShopSidebarThreeColsMain = () => {
     <>
       <BreadCrumb title="Shop" />
       <ShopThreeMainArea />
-      <SidebarMain />
+      <SidebarMain vendorId="-1" />
     
     </>
   );
