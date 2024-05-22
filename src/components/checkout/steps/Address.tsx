@@ -320,7 +320,7 @@ const Address = ({ step, setStep }: propsType) => {
                 <div className="col-md-6">
                 <div className="card">
         <div className="card-header d-flex justify-content-between align-items-center">
-          <h5 className="card-title">Panier d'achat</h5>
+          <h5 className="card-title">Panier d achat</h5>
           <button
             
             className="btn-close"
