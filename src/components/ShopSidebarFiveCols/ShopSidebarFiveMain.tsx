@@ -10,7 +10,7 @@ const ShopSidebarFiveMain = () => {
         <>
             <BreadCrumb title='Tous Les Produits'/>
             <ShopMainArea/>
-            <SidebarMain />
+            <SidebarMain vendorId="-1" />
         </>
     );
 };
