@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { filterCategoryType } from "@/interFace/interFace";
 import useGlobalContext from "@/hooks/use-context";
-
-const FilterByCategory = () => {
+interface propsType {
+  vendorId: string;
+}
+const FilterByCategory = ({ vendorId }: propsType) => {
   const [open, setOpen] = useState(false);
-  const [categories, setCategories] = useState<filterCategoryType[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
   const [active, setActive] = useState<number>(0);
   const {
     setFilterBrand,
@@ -19,19 +21,40 @@ const FilterByCategory = () => {
     sideFilterOpen,
     setSideFilterOpen,
   } = useGlobalContext();
+  
 
+  
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
+    // Extract vendorId from URL if available
+
+
+    const fetchData = async () => {
+    const finalVendorId = parseInt(vendorId);
+
+
+      console.log("vendor id  ",finalVendorId);
+      console.log(finalVendorId==-1);
+      
+      if (finalVendorId == -1) {
+      console.log('finalVendorId');
+        
         const response = await axios.get("https://elbriniachraf.com/api/categories");
         setCategories(response.data.categories); // Supposons que votre réponse renvoie un tableau d'objets de type filterCategoryType
-      } catch (error) {
-        console.error("Error fetching categories:", error);
+      } else {
+      console.log('finalVendorId2');
+
+        const response = await axios.get(`https://elbriniachraf.com/api/vendors/${finalVendorId}`);
+        const categoriesString: string = response.data.categories; // Supposons que c'est une chaîne de caractères
+        const categoriesArray: string[] = categoriesString.split(",").map((category: string) => category.trim());
+      console.log(categoriesArray);
+
+        setCategories(categoriesArray);
+
       }
     };
 
-    fetchCategories();
-  }, []);
+    fetchData();
+  }, [vendorId]);
 
   const handleFilterCategory = (item: filterCategoryType) => {
     setFilterSize([]);
@@ -50,7 +73,7 @@ const FilterByCategory = () => {
     <>
       <div className={`filter-widget ${open ? "child-content-hidden" : ""}`}>
         <h4 onClick={() => setOpen(!open)} className="filter-widget-title drop-btn">
-          Categorys
+          Categories
         </h4>
         <div className={`filter-widget-content ${open ? "content-hidden" : ""}`}>
           <div className="category-items">

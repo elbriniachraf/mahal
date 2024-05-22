@@ -19,7 +19,7 @@ const Stepper = () => {
   return (
     <div className="container py-5">
       <div className="row justify-content-center">
-        <div className="col-lg-8">
+        <div className="col-lg-12">
           <div className="card border-0 shadow">
             <div className="card-body custom_padding">
               <div className="rows">

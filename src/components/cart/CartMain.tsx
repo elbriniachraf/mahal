@@ -8,7 +8,7 @@ const CartMain = () => {
         <>
             <BreadCrumb title='My Cart'/>
             <CartArea/>
-            <SidebarMain/>
+            <SidebarMain vendorId="-1"/>
         </>
     );
 };

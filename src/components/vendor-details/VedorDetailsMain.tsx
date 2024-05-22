@@ -12,7 +12,7 @@ const VedorDetailsMain = ({vendorId}:propsType) => {
     <>
       <VendorProfile vendorId={vendorId}/>
       <ShopMainAreaVendor vendorId={vendorId}/>
-      <SidebarMain />
+      <SidebarMain  vendorId={vendorId} />
     </>
   );
 };

@@ -3,10 +3,13 @@ import axios from "axios";
 import useGlobalContext from "@/hooks/use-context";
 import { filterCategoryType } from "@/interFace/interFace";
 
-const FilterByCategoryTwo = () => {
+interface propsType {
+  vendorId: string;
+}
+const FilterByCategoryTwo = ({ vendorId }: propsType)  => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
-  const [categories, setCategories] = useState<filterCategoryType[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
   const {
     setFilterBrand,
     setFilterSize,
@@ -19,17 +22,36 @@ const FilterByCategoryTwo = () => {
   } = useGlobalContext();
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
+    // Extract vendorId from URL if available
+
+
+    const fetchData = async () => {
+    const finalVendorId = parseInt(vendorId);
+
+
+      console.log("vendor id  ",finalVendorId);
+      console.log(finalVendorId==-1);
+      
+      if (finalVendorId == -1) {
+      console.log('finalVendorId');
+        
         const response = await axios.get("https://elbriniachraf.com/api/categories");
-        setCategories(response.data.categories);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
+        setCategories(response.data.categories); // Supposons que votre réponse renvoie un tableau d'objets de type filterCategoryType
+      } else {
+      console.log('finalVendorId2');
+
+        const response = await axios.get(`https://elbriniachraf.com/api/vendors/${finalVendorId}`);
+        const categoriesString: string = response.data.categories; // Supposons que c'est une chaîne de caractères
+        const categoriesArray: string[] = categoriesString.split(",").map((category: string) => category.trim());
+      console.log(categoriesArray);
+
+        setCategories(categoriesArray);
+
       }
     };
 
-    fetchCategories();
-  }, []);
+    fetchData();
+  }, [vendorId]);
 
   const handleFilterCategory = (item: filterCategoryType) => {
     setFilterSize([]);
@@ -65,7 +87,7 @@ const FilterByCategoryTwo = () => {
                   active === item.id ? "active-category" : ""
                 }`}
               >
-                <div className="category-name">{item?.name}</div>{" "}
+                <div className="category-name">{item}</div>{" "}
                 <span className="category-items-number">{item?.total}</span>
               </button>
             ))}

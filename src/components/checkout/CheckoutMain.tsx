@@ -7,7 +7,7 @@ const CheckoutMain = () => {
     return (
         <>  <BreadCrumb title='Checkout'/>
             <Stepper/>
-            <SidebarMain/>
+            <SidebarMain vendorId='-1'/>
         </>
     );
 };

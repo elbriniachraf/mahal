@@ -12,7 +12,7 @@ const ShopDetailsMain = ({ id }: idType) => {
       <ShopDetailsArea id={id} />
       <RelatedProductSlider id={id} />
      
-      <SidebarMain />
+      <SidebarMain vendorId="-1" />
     </>
   );
 };

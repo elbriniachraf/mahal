@@ -12,8 +12,10 @@ import FilterByColorTwo from "./FilterByColorTwo";
 import FilterByBrandTwo from "./FilterByBrandTwo";
 import FilterByRange from "../FilterByRange";
 import FilterByTags from "../FilterByTags";
-
-const SidebarFilterMainTwo: React.FC = () => {
+interface propsType {
+  vendorId: string;
+}
+const SidebarFilterMainTwo = ({ vendorId }: propsType)  => {
   const {
     setFilterBrand,
     setFilterSize,
@@ -67,13 +69,13 @@ const SidebarFilterMainTwo: React.FC = () => {
             </div>
           </div>
           
-          <FilterByCategoryTwo />
-          <FilterBySizeTwo />
+          <FilterByCategoryTwo vendorId={vendorId} />
+          {/* <FilterBySizeTwo /> */}
           <FilterByRatingTwo />
-          <FilterByColorTwo />
-          <FilterByBrandTwo />
-          <FilterByRange />
-          <FilterByTags />
+          {/* <FilterByColorTwo /> */}
+          {/* <FilterByBrandTwo /> */}
+          <FilterByRange   />
+          {/* <FilterByTags /> */}
 
         </div>
       </div>

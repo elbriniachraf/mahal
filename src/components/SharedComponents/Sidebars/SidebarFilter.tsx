@@ -7,8 +7,10 @@ import FilterBySize from "@/components/ShopSidebarFiveCols/subComponents/FilterB
 import FilterByTags from "@/components/ShopSidebarFiveCols/subComponents/FilterByTags";
 import useGlobalContext from "@/hooks/use-context";
 import React, { ChangeEvent, FormEvent, useState } from "react";
-
-const SidebarFilter = () => {
+interface propsType {
+  vendorId: string;
+}
+const SidebarFilter = ({ vendorId }: propsType)  => {
   const {
     setFilterBrand,
     setFilterSize,
@@ -71,7 +73,7 @@ const SidebarFilter = () => {
                 </div>
               </div>
             </div>
-            <FilterByCategory /> 
+            <FilterByCategory vendorId={vendorId}  /> 
             <FilterBySize />
             <FilterByRating />
             <FilterByColor />

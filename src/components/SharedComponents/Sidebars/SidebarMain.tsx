@@ -5,8 +5,10 @@ import useGlobalContext from "@/hooks/use-context";
 import SidebarWishlist from "./SidebarWishlist";
 import SidebarFilter from "./SidebarFilter";
 import SidebarMenu from "./SidebarMenu";
-
-const SidebarMain = () => {
+interface propsType {
+  vendorId: string;
+}
+const SidebarMain = ({ vendorId }: propsType) => {
   const { sideCartOpen, setSideCartOpen, sideWishlistOpen,setSideWishlistOpen,sideFilterOpen, setSideFilterOpen ,sideMenuOpen,toggleSideMenu} = useGlobalContext();
   return (
     <>
@@ -16,10 +18,10 @@ const SidebarMain = () => {
       <div onClick={toggleSideMenu} className={`offcanvas-overlay ${sideMenuOpen ? "overlay-open" : ""}`}></div>
       <div className="offcanvas-overlay-white"></div>
       
-      <SidebarMenu/>
-      <SidebarCard />
+      <SidebarMenu  />
+      <SidebarCard  />
       <SidebarWishlist />
-      <SidebarFilter />
+      <SidebarFilter vendorId={vendorId} />
     </>
   );
 };
