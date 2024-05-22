@@ -10,7 +10,7 @@ const FaqMain = () => {
       <BreadCrumb title="Faq" />
       <FaqContent />
       <FaqFormMain />
-      <SidebarMain/>
+      <SidebarMain vendorId="-1"/>
     </>
   );
 };

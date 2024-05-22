@@ -13,7 +13,7 @@ const BecomeVendorMain = () => {
             <SellingSteps/>
             <SellingTutoriyal/>
             <VendorFaq/>
-            <SidebarMain/>
+            <SidebarMain vendorId="-1"/>
         </>
     );
 };

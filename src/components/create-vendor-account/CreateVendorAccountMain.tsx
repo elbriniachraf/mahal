@@ -8,7 +8,7 @@ const CreateVendorAccountMain = () => {
     <>
       <BreadCrumb title="Create Vendor Account" />
        <CreateVendorForm/>
-      <SidebarMain />
+       <SidebarMain vendorId="-1"/>
     </>
   );
 };

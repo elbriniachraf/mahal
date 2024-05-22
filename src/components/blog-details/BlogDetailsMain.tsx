@@ -12,7 +12,7 @@ const BlogDetailsMain = ({ id }: idType) => {
     <>
       <BreadCrumb title={item?.title} />
       <BlogDetailsArea item={item}/>
-      <SidebarMain/>
+      <SidebarMain vendorId="-1"/>
     </>
   );
 };

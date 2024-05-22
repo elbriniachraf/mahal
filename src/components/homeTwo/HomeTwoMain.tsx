@@ -15,7 +15,7 @@ const HomeTwoMain = () => {
       <BundleComboArea />
       <BlogArea />
       <FeaturedAreaHomeTwo />
-      <SidebarMain />
+      <SidebarMain vendorId="-1"/>
     </>
   );
 };

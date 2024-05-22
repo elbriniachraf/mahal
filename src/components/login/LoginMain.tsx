@@ -8,7 +8,7 @@ const LoginMain = () => {
         <>
             <BreadCrumb title='Login'/>
             <LoginForm/>
-            <SidebarMain/>
+            <SidebarMain vendorId="-1"/>
         </>
     );
 };

@@ -13,7 +13,7 @@ const UserProfilePage = () => {
           <main>
             <UserProfileMain />
             <OrderTrackModal />
-            <SidebarMain/>
+            <SidebarMain vendorId="-1"/>
           </main>
         </Wrapper>
       </MetaData>

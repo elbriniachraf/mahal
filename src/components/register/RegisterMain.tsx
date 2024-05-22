@@ -8,7 +8,7 @@ const RegisterMain = () => {
     <>
       <BreadCrumb title="Register" />
       <RegisterForm />
-      <SidebarMain/>
+      <SidebarMain vendorId="-1"/>
     </>
   );
 };

@@ -199,7 +199,7 @@ const CompareMain = () => {
           </div>
         </div>
       </section>
-      <SidebarMain />
+      <SidebarMain vendorId="-1"/>
     </>
   );
 };

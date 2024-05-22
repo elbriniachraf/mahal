@@ -8,7 +8,7 @@ const WishlistMain = () => {
         <>
             <BreadCrumb title='My Wishlist'/>
             <WishlistArea/>
-            <SidebarMain/>
+             <SidebarMain vendorId="-1"/>
         </>
     );
 };

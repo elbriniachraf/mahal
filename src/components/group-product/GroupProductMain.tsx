@@ -8,7 +8,7 @@ const GroupProductMain = () => {
         <>
             <BreadCrumb title='Group Products'/>
             <GroupArea/>
-            <SidebarMain/>
+            <SidebarMain vendorId="-1"/>
         </>
     );
 };

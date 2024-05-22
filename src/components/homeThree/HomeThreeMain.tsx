@@ -20,7 +20,7 @@ const HomeThreeMain = () => {
       <BannerArea/>
       <TestimonialArea/>
       <NewsLetterSection/>
-      <SidebarMain />
+      <SidebarMain vendorId="-1"/>
     </>
   );
 };

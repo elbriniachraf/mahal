@@ -10,7 +10,7 @@ const ContactMain = () => {
       <BreadCrumb title="Contact Us" />
       <ContactFormMain />
       <ContactMap />
-      <SidebarMain/>
+      <SidebarMain vendorId="-1"/>
     </>
   );
 };

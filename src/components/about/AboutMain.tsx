@@ -16,7 +16,7 @@ const AboutMain = () => {
       <AboutFeatures />
       <SpecialityArea />
       <TestimonialArea />
-      <SidebarMain/>
+      <SidebarMain vendorId="-1"/>
     </>
   );
 };

@@ -173,7 +173,7 @@ const handleAddToCart = () =>{
           </div>
         </div>
       </section>
-      <SidebarMain/>
+      <SidebarMain vendorId="-1"/>
     </>
   );
 };

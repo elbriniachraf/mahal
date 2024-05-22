@@ -9,7 +9,7 @@ const ShopFullSixColsMain = () => {
         <>
             <BreadCrumb title='Shop'/>
             <ShopFullSixArea/>
-            <SidebarMain/>
+             <SidebarMain vendorId="-1"/>
             
         </>
     );

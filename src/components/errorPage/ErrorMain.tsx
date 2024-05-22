@@ -29,7 +29,7 @@ const ErrorMain = () => {
         </div>
       </section>
       
-      <SidebarMain/>
+      <SidebarMain vendorId="-1"/>
     </>
   );
 };

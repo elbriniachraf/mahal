@@ -8,7 +8,7 @@ const BlogMain = () => {
         <>
             <BreadCrumb title='Blog'/>
             <BlogArea/>
-            <SidebarMain />
+            <SidebarMain vendorId="-1"/>
         </>
     );
 };

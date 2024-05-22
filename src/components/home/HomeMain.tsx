@@ -15,7 +15,7 @@ const HomeMain = () => {
       <FeaturedProduct />
       <CategoryArea />
       <FeaturesArea />
-      <SidebarMain />
+      <SidebarMain vendorId="-1"/>
     </>
   );
 };
