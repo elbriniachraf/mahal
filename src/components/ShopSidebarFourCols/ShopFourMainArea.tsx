@@ -38,7 +38,7 @@ const ShopFourMainArea = () => {
             {/* right side filter and search bar */}
 
             <div className="col-xl-3 col-lg-4 col-md-6">
-              <SidebarFilterMainTwo />
+              <SidebarFilterMainTwo  vendorId="-1"/>
             </div>
           </div>
         </div>
