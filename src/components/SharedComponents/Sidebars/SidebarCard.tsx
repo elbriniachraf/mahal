@@ -18,8 +18,6 @@ const SidebarCard = () => {
   );
   const [itemsPanier, setItemsPanier] = useState([]);
 
-
-
   const getUserIP = async () => {
     try {
       const response = await axios.get("https://api.ipify.org?format=json");
@@ -30,7 +28,7 @@ const SidebarCard = () => {
     }
   };
 
-  const getPanierData = async (userIP:any) => {
+  const getPanierData = async (userIP: any) => {
     try {
       const response = await axios.post("https://elbriniachraf.com/api/getPanierData", { user_ip: userIP });
       return response.data.cart_items;
@@ -46,14 +44,18 @@ const SidebarCard = () => {
       if (userIP) {
         const cartItems = await getPanierData(userIP);
         setItemsPanier(cartItems);
-        
+
+        // Calculate total price
+        const total = cartItems.reduce((sum: number, item: any) => {
+          return sum + (item.cart_item.quantity * item.product[0].price);
+        }, 0);
+        setTotalPrice(total);
       }
     };
 
     fetchCartData();
   }, [dispatch]);
 
-  
   return (
     <>
       <div className="fix">
@@ -68,18 +70,16 @@ const SidebarCard = () => {
           >
             Close<i className="fal fa-times"></i>
           </button>
-          <h4 className="sidebar-action-title">Panier d achat</h4>
+          <h4 className="sidebar-action-title">Panier d'achat</h4>
           <div className="sidebar-action-list">
             {itemsPanier.length ? (
               <>
-                {itemsPanier.map((item:any, index:number) => {
-                  const productPrice =
-                    (item.price ?? 0) * (item.quantity ?? 0);
+                {itemsPanier.map((item: any, index: number) => {
                   return (
                     <div key={index} className="sidebar-list-item">
                       <div className="product-image pos-rel">
                         <Link href="/shop-sidebar-5-column" className="">
-                          <Image src={item?.product[0].product_images[0].image_url} alt="img"  width={200} height={200}/>
+                          <Image src={item?.product[0].product_images[0].image_url} alt="img" width={200} height={200} />
                         </Link>
                       </div>
                       <div className="product-desc">
@@ -91,7 +91,6 @@ const SidebarCard = () => {
                             {item?.cart_item.quantity} &times;
                           </span>
                           <span className="price-now">${(item?.cart_item.quantity * item?.product[0].price).toFixed(2)}</span>
-
                         </div>
                         <button
                           onClick={() => dispatch(remove_cart_product(item))}
@@ -113,12 +112,17 @@ const SidebarCard = () => {
               <div className="product-price-total">
                 <span>Sous-total :</span>
                 <span className="subtotal-price">
-                  ${totalPrice ? totalPrice : 0}.00
+                  ${totalPrice ? totalPrice.toFixed(2) : 0}.00
                 </span>
+              </div>
+              <div className="sidebar-action-info">
+                <p>
+                  Note: Vous n'êtes pas authentifié. Les commandes seront enregistrées avec votre adresse IP.
+                </p>
               </div>
               <div className="sidebar-action-btn">
                 <Link onClick={() => setSideCartOpen(!sideCartOpen)} href="/cart" className="fill-btn">
-                  Authentitfier
+                  Authentifier
                 </Link>
                 <Link onClick={() => setSideCartOpen(!sideCartOpen)} href="/checkout" className="border-btn">
                   Commander
@@ -128,8 +132,68 @@ const SidebarCard = () => {
           ) : null}
         </div>
       </div>
-    </>
-  );
-};
-
-export default SidebarCard;
+      <style jsx>{`
+        .sidebar-action-info {
+          padding: 15px;
+          background: #f9f9f9;
+          border-radius: 5px;
+          margin-bottom: 20px;
+        }
+        .sidebar-action-info p {
+          margin: 0;
+          font-size: 14px;
+          color: #333;
+        }
+        .sidebar-action-btn .fill-btn {
+          background-color: #333;
+          color: #fff;
+          padding: 10px 20px;
+          margin-right: 10px;
+          text-decoration: none;
+          border-radius: 5px;
+        }
+        .sidebar-action-btn .border-btn {
+          border: 1px solid #333;
+          padding: 10px 20px;
+          color: #333;
+          text-decoration: none;
+          border-radius: 5px;
+        }
+        .product-image img {
+          border-radius: 5px;
+        }
+        .product-desc {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+        .product-pricing {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          }
+          .remove-item {
+          background: none;
+          border: none;
+          color: #ff6f61;
+          cursor: pointer;
+          }
+          .product-name a {
+          text-decoration: none;
+          color: #333;
+          font-weight: 600;
+          }
+          .sidebar-list-item {
+          display: flex;
+          padding: 15px 0;
+          border-bottom: 1px solid #ddd;
+          }
+          .sidebar-list-item:last-child {
+          border-bottom: none;
+          }
+          `}</style>
+          </>
+          );
+          };
+          
+          export default SidebarCard;
