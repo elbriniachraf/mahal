@@ -70,7 +70,7 @@ const SidebarCard = () => {
           >
             Close<i className="fal fa-times"></i>
           </button>
-          <h4 className="sidebar-action-title">Panier d'achat</h4>
+          <h4 className="sidebar-action-title">Panier d achat</h4>
           <div className="sidebar-action-list">
             {itemsPanier.length ? (
               <>
@@ -117,7 +117,7 @@ const SidebarCard = () => {
               </div>
               <div className="sidebar-action-info">
                 <p>
-                  Note: Vous n'êtes pas authentifié. Les commandes seront enregistrées avec votre adresse IP.
+                  Note: Vous n êtes pas authentifié. Les commandes seront enregistrées avec votre adresse IP.
                 </p>
               </div>
               <div className="sidebar-action-btn">
