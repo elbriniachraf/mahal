@@ -1,12 +1,14 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { configureStore as configureStoreRTK } from '@reduxjs/toolkit';
 import { cartSlice } from './slices/cartSlice';
+import authReducer from "./features/auth/authSlice";
 
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, Persistor } from 'redux-persist';
 
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 import { wishlistSlice } from './slices/wishlistSlice';
 import { compareSlice } from './slices/compareSlice';
+import { apiSlice } from './features/api';
 const createNoopStorage = () => {
   return {
     getItem(_key: any) {
@@ -28,20 +30,30 @@ const persistConfig = {
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, combineReducers({
+const reducers = combineReducers({
   cart: cartSlice.reducer,
   wishlist: wishlistSlice.reducer,
   compare: compareSlice.reducer,
-}));
+  auth: authReducer,
+  [apiSlice.reducerPath] : apiSlice.reducer,
+})
+
+const persistedReducer = persistReducer(persistConfig, reducers);
 
 // Configure Redux store
 const store = configureStoreRTK({
   reducer: persistedReducer,
+  // reducer: {
+  //   persistedReducer: persistedReducer,
+  //   [apiSlice.reducerPath] : apiSlice.reducer,
+  // },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
-  }),
+  }).concat(
+    apiSlice.middleware,
+  ),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
@@ -52,3 +64,27 @@ export type AppPersistor = Persistor;
 export const persistor = persistStore(store);
 
 export default store;
+
+// 'use client';
+// import {configureStore} from "@reduxjs/toolkit";
+
+// import { apiSlice } from "./features/api/api";
+// import authReducer from "./features/auth/authSlice";
+
+// export const store = configureStore({
+//   reducer: {
+//     [apiSlice.reducerPath] : apiSlice.reducer,
+//     auth: authReducer
+//   },
+//   middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware().concat(apiSlice.middleware)
+// });
+
+// // Call this function on every page load
+// const initializeApp = async () => {
+//   await store.dispatch(
+//     apiSlice.endpoints.loadUser.initiate({}, {})
+//   );
+// }
+
+// initializeApp();

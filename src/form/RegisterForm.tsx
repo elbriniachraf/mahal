@@ -3,53 +3,58 @@
 import NiceSelectTwo from "@/components/common/NiceSelectTwo";
 import { GenderData } from "@/data/nice-select-data";
 import useGlobalContext from "@/hooks/use-context";
+import { useRegisterMutation } from "@/redux/features/auth/authApi";
 import FacebookIcon from "@/svg/FacebookIcon";
 import GoogleIcon from "@/svg/GoogleIcon";
+import { useFormik } from "formik";
+import * as yup from 'yup'
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
-interface FormData {
-  fname: string;
-  lname: string;
-  email: string;
-  phone: string;
-  password: string;
-  gender: string;
-}
+
+const schemaRegister = yup.object().shape({
+  firstName: yup.string()
+    .required('Please enter your First name'),
+  lastName: yup.string()
+    .required('Please enter your Last name'),
+  phone: yup.string()
+    .required('Please enter your First name'),
+  ville: yup.string()
+    .required('Please enter your First name'),
+  email: yup.string()
+    .email('Invalid email!')
+    .required('Please enter your email address'),
+  password: yup.string()
+    .required('Please enter your password')
+    .min(6),
+})
 
 const RegisterForm = () => {
-  const router = useRouter()
-  const { niceSelectData } = useGlobalContext();
-  const [showPassword, setShowPassword] = useState(false);
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<FormData>();
-
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    const toastId = toast.loading("");
-    const fname = data.fname;
-    const lname = data.lname;
-    const email = data.email;
-    const phone = data.phone;
-    const password = data.password;
-    const gender = niceSelectData;
-    const userInfo = {
-      fname,
-      lname,
-      email,
-      phone,
-      password,
-      gender,
-    };
-    reset(),
-    router.push("/login")
-    toast.success("Register Successfully",{ id: toastId, duration: 1000 })
-  };
+  const [showPassword, setShowPassword] = useState(false)
+  const router = useRouter();
+  const [register, {data, isError, isSuccess, isLoading, error}] = useRegisterMutation();
+  // const {user} = useSelector((state: any) => state?.auth);
+  const formik = useFormik({
+    initialValues: { 
+      firstName: '',
+      lastName: '',
+      phone: '',
+      ville: '',
+      email: '',
+      password: '',
+    },
+    validationSchema: schemaRegister,
+    onSubmit:  (values, {resetForm}) => {
+      register(values)
+      const toastId = toast.loading("");
+      toast.success("Login Success", { id: toastId, duration: 1000 });
+      resetForm();
+      // router.push("/");
+    }
+  })
+  const { errors, values, handleSubmit, handleChange, touched } = formik;
 
   const selectHandler = () => {};
   return (
@@ -61,20 +66,20 @@ const RegisterForm = () => {
               <div className="signup-form-wrapper">
                 {/* form */}
 
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit}>
                   <div className="row">
                     <div className="col-md-6">
                       <div className="signup-wrapper">
                         <input
                           type="text"
                           placeholder="First Name"
-                          {...register("fname", {
-                            required: "First Name is required",
-                          })}
+                          id="firstName"
+                          value={values.firstName}
+                          onChange={handleChange}
                         />
-                        {errors.fname && (
+                        {touched.firstName && errors.firstName && (
                           <span className="error-message">
-                            {errors.fname.message}
+                            {errors.firstName}
                           </span>
                         )}
                       </div>
@@ -84,13 +89,45 @@ const RegisterForm = () => {
                         <input
                           type="text"
                           placeholder="Last Name"
-                          {...register("lname", {
-                            required: "Last Name is required",
-                          })}
+                          id="lastName"
+                          value={values.lastName}
+                          onChange={handleChange}
                         />
-                        {errors.lname && (
+                        {touched.lastName && errors.lastName && (
                           <span className="error-message">
-                            {errors.lname.message}
+                            {errors.lastName}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div className="signup-wrapper">
+                        <input
+                          type="text"
+                          placeholder="Phone"
+                          id="phone"
+                          value={values.phone}
+                          onChange={handleChange}
+                        />
+                        {touched.phone && errors.phone && (
+                          <span className="error-message">
+                            {errors.phone}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div className="signup-wrapper">
+                        <input
+                          type="text"
+                          placeholder="Ville"
+                          id="ville"
+                          value={values.ville}
+                          onChange={handleChange}
+                        />
+                        {touched.ville && errors.ville && (
+                          <span className="error-message">
+                            {errors.ville}
                           </span>
                         )}
                       </div>
@@ -100,34 +137,13 @@ const RegisterForm = () => {
                         <input
                           type="email"
                           placeholder="Email"
-                          {...register("email", {
-                            required: "Email is required",
-                            pattern: {
-                              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                              message: "Invalid email address",
-                            },
-                          })}
+                          id="email"
+                          value={values.email}
+                          onChange={handleChange}
                         />
-                        {errors.email && (
+                        {touched.email && errors.email && (
                           <span className="error-message">
-                            {errors.email.message}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="signup-wrapper">
-                        <input
-                          type="text"
-                          placeholder="Phone Number"
-                          {...register("phone", {
-                            required: "Phone is required",
-                            minLength: 10,
-                          })}
-                        />
-                        {errors.phone && (
-                          <span className="error-message">
-                            {errors.phone.message}
+                            {errors.email}
                           </span>
                         )}
                       </div>
@@ -136,14 +152,13 @@ const RegisterForm = () => {
                       <div className="signup-wrapper">
                         <input
                           className="password_input"
-                           type={showPassword ? "text" : "password"}
+                          type={showPassword ? "text" : "password"}
                           placeholder="Password"
-                          {...register("password", {
-                            required: "Password is required",
-                            minLength: 6,
-                          })}
+                          id="password"
+                          value={values.password}
+                          onChange={handleChange}
                         />
-                         <span className="input-icon">
+                          <span className="input-icon">
                             <button
                               type="button"
                               onClick={() => setShowPassword(!showPassword)}
@@ -158,22 +173,22 @@ const RegisterForm = () => {
                               ></i>
                             </button>
                           </span>
-                        {errors.password && (
+                        {touched.password && errors.password && (
                           <span className="error-message">
-                            {errors.password.message}
+                            {errors.password}
                           </span>
-                        )} 
+                        )}
                       </div>
                     </div>
                     <div className="col-md-6">
                       <div className="signup-wrapper">
-                        <NiceSelectTwo
+                        {/* <NiceSelectTwo
                           options={GenderData}
                           defaultCurrent={0}
                           onChange={selectHandler}
                           name=""
                           className="gender_select"
-                        />
+                        /> */}
                       </div>
                     </div>
                   </div>

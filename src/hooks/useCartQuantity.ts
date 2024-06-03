@@ -7,7 +7,7 @@ import { number } from 'yup';
 export const useUniqueProductCount = () => {
   const cartProducts = useSelector((state: RootState) => state.cart.cartProducts);
   const uniqueProductIds = new Set();
-  cartProducts.forEach((product: ProductsType) => uniqueProductIds.add(product.id));
+  cartProducts.forEach((product: ProductsType) => uniqueProductIds.add(product.id));  
   return uniqueProductIds.size;
 };
 export const useUniqueWishlstCount = () => {

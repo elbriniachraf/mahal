@@ -1,38 +1,43 @@
 "use client";
+import { useLoginMutation } from "@/redux/features/auth/authApi";
 import FacebookIcon from "@/svg/FacebookIcon";
+import { useFormik } from 'formik';
+import * as yup from 'yup'
 import GoogleIcon from "@/svg/GoogleIcon";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
+import { useSelector } from "react-redux";
 
-interface FormData {
-  email: string;
-  password: string;
-} 
+const schemaLogin = yup.object().shape({
+  email: yup.string()
+    .email('Invalid email!')
+    .required('Please enter your email address'),
+  password: yup.string()
+    .required('Please enter your password')
+    .min(6),
+})
 
 const LoginForm = () => {
   const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<FormData>();
-
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    const toastId = toast.loading("");
-    const email = data.email;
-    const password = data.password;
-    const userInfo = {
-      email,
-      password,
-    };
-    toast.success("Login Success", { id: toastId, duration: 1000 });
-    reset();
-    router.push("/");
-  };
+  const [login, {data, isError, isSuccess, isLoading, error}] = useLoginMutation();
+  // const {user} = useSelector((state: any) => state?.auth);
+  const formik = useFormik({
+    initialValues: { email: "", password: "" },
+    validationSchema: schemaLogin,
+    onSubmit:  ({ email, password }, {resetForm}) => {
+      console.log('======= Values is ======= \n', { email: email, password: password})
+      login({email, password})
+      console.log({data, isError, isSuccess, isLoading, error}, '============')
+      const toastId = toast.loading("");
+      toast.success("Login Success", { id: toastId, duration: 1000 });
+      resetForm();
+      // router.push("/");
+    }
+  })
+  const { errors, values, handleSubmit, handleChange, touched } = formik;
 
   return (
     <>
@@ -41,36 +46,32 @@ const LoginForm = () => {
           <div className="row justify-content-center">
             <div className="col-lg-8">
               <div className="signup-form-wrapper">
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit}>
                   <div className="signup-wrapper">
                     <input
                       type="email"
                       placeholder="Email or Username"
-                      {...register("email", {
-                        required: "Email is required",
-                        pattern: {
-                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                          message: "Invalid email address",
-                        },
-                      })}
+                      id="email"
+                      value={values.email}
+                      onChange={handleChange}
                     />
-                    {errors.email && (
+                    {touched.email && errors.email && (
                       <span className="error-message">
-                        {errors.email.message}
+                        {errors.email}
                       </span>
                     )}
                   </div>
                   <div className="signup-wrapper">
                     <input
-                      type="text"
+                      type="password"
                       placeholder="Password"
-                      {...register("password", {
-                        required: "Password is required",
-                      })}
+                      value={values.password}
+                      onChange={handleChange}
+                      id='password'
                     />
-                    {errors.password && (
+                    {touched.password && errors.password && (
                       <span className="error-message">
-                        {errors.password.message}
+                        {errors.password}
                       </span>
                     )}
                   </div>
