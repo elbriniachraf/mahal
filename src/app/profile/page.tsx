@@ -5,9 +5,11 @@ import MetaData from "@/hooks/useMetaData";
 import Wrapper from "@/layout/DefaultWrapper";
 import React from "react";
 
+import Protected from "@/hooks/useProtect";
+
 const UserProfilePage = () => {
   return (
-    <>
+    <Protected>
       <MetaData pageTitle="Profile">
         <Wrapper>
           <main>
@@ -17,7 +19,7 @@ const UserProfilePage = () => {
           </main>
         </Wrapper>
       </MetaData>
-    </>
+    </Protected>
   );
 };
 

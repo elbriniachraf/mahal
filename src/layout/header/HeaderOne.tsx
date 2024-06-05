@@ -16,10 +16,14 @@ import { useRouter } from "next/navigation";
 import SupportIcon from "@/svg/SupportIcon";
 import SupportIconWithHeadphone from "@/svg/SupportIconWithHeadphone";
 import axios from 'axios';
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 const HeaderOne = () => {
   const [open, setOpen] = useState(true);
   const router = useRouter();
   const searchRef = useRef(null);
+  const user = useSelector((state: RootState)=>state.auth)
+  console.log(user)
   const {
     setSideCartOpen,
     sideCartOpen,
@@ -186,7 +190,7 @@ const HeaderOne = () => {
                       </div>
                       {/* copmare */}
                       <div className="user-btn">
-                        <Link href="/login">
+                        <Link href={user?.user === null ? `/login` : '/profile'}>
                           <div className="user-icon">
                             <i className="flaticon-avatar"></i>
                           </div>

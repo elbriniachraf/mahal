@@ -10,7 +10,7 @@ const Protected = ({
   const router = useRouter();
 
   const isAuth = UserArth();
-  return isAuth ? children : router.push("/");
+  return isAuth ? children : router.push("/login");
 }
 
 export default Protected;
