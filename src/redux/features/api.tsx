@@ -17,19 +17,19 @@ export const apiSlice = createApi({
     },
   }),
   endpoints: (builder) => ({
-    loadUser: builder.query({
-      query: () => { return {url: 'users/me', credentials: "include" as const}  },
-      async onQueryStarted(arg, { queryFulfilled, dispatch }){
-        try{
-          const result = await queryFulfilled;
-          console.log(result);
-          dispatch(userLoggedIn({user: result.data}))
-        }catch(err: any){
-          console.log(err);
-        } 
-      }
-    })
+    // loadUser: builder.query({
+    //   query: () => { return {url: 'users/me', credentials: "include" as const}  },
+    //   async onQueryStarted(arg, { queryFulfilled, dispatch }){
+    //     try{
+    //       const result = await queryFulfilled;
+    //       console.log(result);
+    //       dispatch(userLoggedIn({user: result.data}))
+    //     }catch(err: any){
+    //       console.log(err);
+    //     } 
+    //   }
+    // })
   })
 })
 
-export const { useLoadUserQuery } = apiSlice;
+// export const { useLoadUserQuery } = apiSlice;

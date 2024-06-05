@@ -25,40 +25,12 @@ const authApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }){
         try{
           const result = await queryFulfilled;
-          dispatch(userLoggedIn({user: result.data.user}))
+          dispatch(userLoggedIn({user: result.data.user, token: result.data.authorisation.token}))
         }catch(err: any){
           console.log(err);
         } 
       }
     }),
-    // loginSocial: builder.mutation({
-    //   query: ({email, name, avatar}) => ({
-    //     url: 'users/social-auth',
-    //     method: 'POST',
-    //     body: {email, name, avatar},
-    //     credentials: "include" as const 
-    //   }),
-    //   async onQueryStarted(arg, { queryFulfilled, dispatch }){
-    //     try{
-    //       const result = await queryFulfilled;
-    //       dispatch(userLoggedIn({user: result.data.user}))
-    //     }catch(err: any){
-    //       console.log(err);
-    //     } 
-    //   }
-    // }),
-    // logOut: builder.query({
-    //   query: () => { return {url: 'users/logout', credentials: "include" as const}  },
-    //   async onQueryStarted(arg, { queryFulfilled, dispatch }){
-    //     console.log('first')
-    //     try{
-    //       const result = await queryFulfilled;
-    //       dispatch(userLoggedOut(result))
-    //     }catch(err: any){
-    //       console.log(err);
-    //     } 
-    //   }
-    // }),
   })
 })
 

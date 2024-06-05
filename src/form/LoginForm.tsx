@@ -6,7 +6,7 @@ import * as yup from 'yup'
 import GoogleIcon from "@/svg/GoogleIcon";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { useSelector } from "react-redux";
@@ -23,22 +23,27 @@ const schemaLogin = yup.object().shape({
 const LoginForm = () => {
   const router = useRouter();
   const [login, {data, isError, isSuccess, isLoading, error}] = useLoginMutation();
-  // const {user} = useSelector((state: any) => state?.auth);
+  
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: schemaLogin,
     onSubmit:  ({ email, password }, {resetForm}) => {
-      console.log('======= Values is ======= \n', { email: email, password: password})
       login({email, password})
-      console.log({data, isError, isSuccess, isLoading, error}, '============')
-      const toastId = toast.loading("");
-      toast.success("Login Success", { id: toastId, duration: 1000 });
-      resetForm();
-      // router.push("/");
     }
   })
   const { errors, values, handleSubmit, handleChange, touched } = formik;
 
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success('You successfully logged in');
+      formik.resetForm();
+      router.push("/");
+    }
+    if (isError) {
+      const toastId = toast.loading("");
+      toast.error("Email Or Password Invalid", { id: toastId, duration: 1000 });
+    }
+  }, [isLoading]);
   return (
     <>
       <div className="register-area pt-120 pb-120">

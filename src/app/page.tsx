@@ -5,6 +5,8 @@ import MetaData from "@/hooks/useMetaData";
 import WrapperStyleOne from "@/layout/WrapperStyleOne";
 const Home = () => {
   const pageTitle = "Home"
+  
+  
   return (
     <>
       <MetaData pageTitle={pageTitle}>

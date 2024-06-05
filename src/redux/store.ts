@@ -9,6 +9,7 @@ import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 import { wishlistSlice } from './slices/wishlistSlice';
 import { compareSlice } from './slices/compareSlice';
 import { apiSlice } from './features/api';
+import { useSelector } from 'react-redux';
 const createNoopStorage = () => {
   return {
     getItem(_key: any) {
@@ -43,10 +44,6 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 // Configure Redux store
 const store = configureStoreRTK({
   reducer: persistedReducer,
-  // reducer: {
-  //   persistedReducer: persistedReducer,
-  //   [apiSlice.reducerPath] : apiSlice.reducer,
-  // },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
@@ -65,26 +62,13 @@ export const persistor = persistStore(store);
 
 export default store;
 
-// 'use client';
-// import {configureStore} from "@reduxjs/toolkit";
+// Call this function on every page load
+const initializeApp = async () => {
+  // await store.dispatch(
+  //   apiSlice.endpoints.loadUser.initiate({}, {})
+  // );
+  const user = useSelector((state: RootState)=>state.auth)
+  console.log('=======================')
+}
 
-// import { apiSlice } from "./features/api/api";
-// import authReducer from "./features/auth/authSlice";
-
-// export const store = configureStore({
-//   reducer: {
-//     [apiSlice.reducerPath] : apiSlice.reducer,
-//     auth: authReducer
-//   },
-//   middleware: (getDefaultMiddleware) =>
-//     getDefaultMiddleware().concat(apiSlice.middleware)
-// });
-
-// // Call this function on every page load
-// const initializeApp = async () => {
-//   await store.dispatch(
-//     apiSlice.endpoints.loadUser.initiate({}, {})
-//   );
-// }
-
-// initializeApp();
+initializeApp();

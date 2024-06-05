@@ -15,9 +15,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 
 const schemaRegister = yup.object().shape({
-  firstName: yup.string()
+  firstname: yup.string()
     .required('Please enter your First name'),
-  lastName: yup.string()
+  lastname: yup.string()
     .required('Please enter your Last name'),
   phone: yup.string()
     .required('Please enter your First name'),
@@ -38,12 +38,13 @@ const RegisterForm = () => {
   // const {user} = useSelector((state: any) => state?.auth);
   const formik = useFormik({
     initialValues: { 
-      firstName: '',
-      lastName: '',
+      firstname: '',
+      lastname: '',
       phone: '',
       ville: '',
       email: '',
       password: '',
+      ipadresse: '197.0.0.1'
     },
     validationSchema: schemaRegister,
     onSubmit:  (values, {resetForm}) => {
@@ -73,13 +74,13 @@ const RegisterForm = () => {
                         <input
                           type="text"
                           placeholder="First Name"
-                          id="firstName"
-                          value={values.firstName}
+                          id="firstname"
+                          value={values.firstname}
                           onChange={handleChange}
                         />
-                        {touched.firstName && errors.firstName && (
+                        {touched.firstname && errors.firstname && (
                           <span className="error-message">
-                            {errors.firstName}
+                            {errors.firstname}
                           </span>
                         )}
                       </div>
@@ -89,13 +90,13 @@ const RegisterForm = () => {
                         <input
                           type="text"
                           placeholder="Last Name"
-                          id="lastName"
-                          value={values.lastName}
+                          id="lastname"
+                          value={values.lastname}
                           onChange={handleChange}
                         />
-                        {touched.lastName && errors.lastName && (
+                        {touched.lastname && errors.lastname && (
                           <span className="error-message">
-                            {errors.lastName}
+                            {errors.lastname}
                           </span>
                         )}
                       </div>
