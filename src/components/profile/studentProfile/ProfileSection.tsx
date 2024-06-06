@@ -12,8 +12,11 @@ import UserReviews from "./UserReviews";
 import UserComments from "./UserComments";
 import PaymentInfo from "./PaymentInfo";
 import CancelOrderTrack from "./CancelOrderTrack";
+import { useGetAccountDetailsQuery } from "@/redux/features/account/account";
 
 const ProfileSection = () => {
+  const {data, isSuccess, isError, isLoading} = useGetAccountDetailsQuery();
+  
   return (
     <div className="course-details-area pt-120 pb-100">
       <div className="container container-small">

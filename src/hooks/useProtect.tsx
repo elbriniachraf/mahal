@@ -1,3 +1,5 @@
+'use client'
+
 import React from "react";
 import UserArth from "./useAuth";
 import { redirect, useRouter } from "next/navigation";
