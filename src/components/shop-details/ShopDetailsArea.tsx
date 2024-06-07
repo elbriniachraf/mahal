@@ -61,7 +61,7 @@ const ShopDetailsArea = ({ id }: idType) => {
         console.log("ddddd");
         
         
-        const response = await axios.get(`https://elbriniachraf.com/api/products/${id}`);
+        const response = await axios.get(`http://localhost:8000/api/products/${id}`);
         console.log(response.data);
         console.log(response.data.product);
 
@@ -128,7 +128,7 @@ const ShopDetailsArea = ({ id }: idType) => {
         user_ip: userIP,
       };
   
-      const response = await axios.post('https://elbriniachraf.com/api/cart', data);
+      const response = await axios.post('http://localhost:8000/api/cart', data);
       console.log("Product added to cart successfully");
   
      // Extraire le message de la réponse

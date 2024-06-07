@@ -37,7 +37,7 @@ const ProfileSidebar = () => {
               aria-controls="profile"
               aria-selected="false"
             >
-              <i className="fas fa-user"></i> My Profile
+              <i className="fas fa-user"></i> Mon profile
             </button>
           </li>
           <li className="nav-item" role="presentation">
@@ -51,7 +51,7 @@ const ProfileSidebar = () => {
               aria-controls="history"
               aria-selected="false"
             >
-              <i className="fas fa-cart-plus"></i> Order Products
+              <i className="fas fa-cart-plus"></i> Mes orders
             </button>
           </li>
           <li className="nav-item" role="presentation">
@@ -79,7 +79,7 @@ const ProfileSidebar = () => {
               aria-controls="reviews"
               aria-selected="false"
             >
-              <i className="fas fa-star"></i> Reviews
+              <i className="fas fa-star"></i> Mon panier
             </button>
           </li>
           <li className="nav-item" role="presentation">

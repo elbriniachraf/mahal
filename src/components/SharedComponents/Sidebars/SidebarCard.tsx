@@ -17,7 +17,7 @@ const SidebarCard = () => {
     (state: RootState) => state.cart.cartProducts
   );
   const [itemsPanier, setItemsPanier] = useState([]);
-
+  const [token, setToken] = useState(null);
   const getUserIP = async () => {
     try {
       const response = await axios.get("https://api.ipify.org?format=json");
@@ -28,9 +28,30 @@ const SidebarCard = () => {
     }
   };
 
-  const getPanierData = async (userIP: any) => {
+
+  useEffect(() => {
+    
+
+
+  
+  }, []);
+
+
+  const getPanierData = async (userIP:any) => {
     try {
-      const response = await axios.post("https://elbriniachraf.com/api/getPanierData", { user_ip: userIP });
+      const authToken = localStorage.getItem("auth_token");
+    setToken(authToken);
+    
+    console.log("tokeennnnnn ", authToken);
+      const response = await axios.post(
+        "http://localhost:8000/api/getPanierData",
+        { user_ip: userIP },
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
       return response.data.cart_items;
     } catch (error) {
       console.error("Could not retrieve cart data:", error);
@@ -47,7 +68,7 @@ const SidebarCard = () => {
 
         // Calculate total price
         const total = cartItems.reduce((sum: number, item: any) => {
-          return sum + (item.cart_item.quantity * item.product[0].price);
+          return sum + (item.cart_item.quantity * item.product.price);
         }, 0);
         setTotalPrice(total);
       }
@@ -79,18 +100,18 @@ const SidebarCard = () => {
                     <div key={index} className="sidebar-list-item">
                       <div className="product-image pos-rel">
                         <Link href="/shop-sidebar-5-column" className="">
-                          <Image src={item?.product[0].product_images[0].image_url} alt="img" width={200} height={200} />
+                          <Image src={item?.product.product_images[0].image_url} alt="img" width={200} height={200} />
                         </Link>
                       </div>
                       <div className="product-desc">
                         <div className="product-name">
-                          <Link href="/shop-sidebar-5-column"> {item?.product[0].name} </Link>
+                          <Link href="/shop-sidebar-5-column"> {item?.product.name} </Link>
                         </div>
                         <div className="product-pricing">
                           <span className="item-number">
                             {item?.cart_item.quantity} &times;
                           </span>
-                          <span className="price-now">${(item?.cart_item.quantity * item?.product[0].price).toFixed(2)}</span>
+                          <span className="price-now">MAD{(item?.cart_item.quantity * item?.product.price).toFixed(2)}</span>
                         </div>
                         <button
                           onClick={() => dispatch(remove_cart_product(item))}
@@ -112,18 +133,26 @@ const SidebarCard = () => {
               <div className="product-price-total">
                 <span>Sous-total :</span>
                 <span className="subtotal-price">
-                  ${totalPrice ? totalPrice.toFixed(2) : 0}.00
+                  MAD{totalPrice ? totalPrice.toFixed(2) : 0}
                 </span>
               </div>
-              <div className="sidebar-action-info">
-                <p>
-                  Note: Vous n êtes pas authentifié. Les commandes seront enregistrées avec votre adresse IP.
-                </p>
-              </div>
+
+
+              {!token && (
+          <div className="sidebar-action-info">
+            <p>
+              Note: Vous n'êtes pas authentifié. Les commandes seront enregistrées avec votre adresse IP.
+            </p>
+          </div>
+        )}
+
+
               <div className="sidebar-action-btn">
-                <Link onClick={() => setSideCartOpen(!sideCartOpen)} href="/cart" className="fill-btn">
-                  Authentifier
-                </Link>
+              {!token && (
+         <Link onClick={() => setSideCartOpen(!sideCartOpen)} href="/cart" className="fill-btn">
+         Authentifier
+       </Link>
+        )}
                 <Link onClick={() => setSideCartOpen(!sideCartOpen)} href="/checkout" className="border-btn">
                   Commander
                 </Link>

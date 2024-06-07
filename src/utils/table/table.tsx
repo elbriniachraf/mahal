@@ -201,6 +201,8 @@ export const columnsCategories: ColumnDef<ICategorie>[] = [
     header: "Actions",
     cell: ({ row }) => {
       const {id} = row.original;
+      
+      
       const [isModalShow, setIsModalShow] = useState(false);
       const [deleteCategorie, {data, isError, isSuccess, isLoading}] = useDeleteCategorieMutation();
 
@@ -221,7 +223,7 @@ export const columnsCategories: ColumnDef<ICategorie>[] = [
       
       return(
         <>
-          <Link href={`/edit-categorie/${id}`} className={Classes['table-button__cell']}><TiEdit /></Link>
+          <Link href={`/administrator//edit-categorie/${id}`} className={Classes['table-button__cell']}><TiEdit /></Link>
           <button className={Classes['table-button__cell']} onClick={() => setIsModalShow(true)}><MdDelete /></button>
           <Modal isShow={isModalShow} setShow={setIsModalShow} deleteFunction={handleDeleteCategorie}/>
         </>

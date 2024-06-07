@@ -6,6 +6,24 @@ import Payment from "./steps/Payment";
 import Complete from "./steps/Complete";
 
 const Stepper = () => {
+  const [formData, setFormData] = useState({
+    fname: "",
+    lname: "",
+    companyName: "",
+    address: "",
+    city: "",
+    state: "",
+    postCode: "",
+    email: "",
+    phone: "",
+    notes: "",
+    hasPassword: false,
+    password: "",
+    panier:{},
+  });
+
+  const [order, setOrder] = useState<number>(-1);
+  
   const [step, setStep] = useState<number>(1);
 
   const nextStep = () => {
@@ -36,7 +54,7 @@ const Stepper = () => {
                       <h6 className="mb-1"> Address </h6>
                     </div>
                   </div>
-                  <div
+                  {/* <div
                     className={`item-step ${step >= 2 ? "line-active" : ""}`}
                   >
                     <div className="rounded-step">
@@ -47,7 +65,7 @@ const Stepper = () => {
                       ></div>
                       <h6 className="mb-1"> Review </h6>
                     </div>
-                  </div>
+                  </div> */}
                   <div
                     className={`item-step ${step >= 3 ? "line-active" : ""}`}
                   >
@@ -79,25 +97,25 @@ const Stepper = () => {
                 {step === 1 && (
                   <>
                     {" "}
-                    <Address step={step} setStep={setStep}/>{" "}
+                    <Address formData={formData} setFormData={setFormData} setStep={setStep} />{" "}
                   </>
                 )}
-                {step === 2 && (
+                {/* {step === 2 && (
                   <>
                     {" "}
                     <Review />{" "}
+                  </>
+                )} */}
+                {step === 2 && (
+                  <>
+                    {" "}
+                    <Payment formData={formData} setStep={setStep} setOrder={setOrder} />{" "}
                   </>
                 )}
                 {step === 3 && (
                   <>
                     {" "}
-                    <Payment />{" "}
-                  </>
-                )}
-                {step === 4 && (
-                  <>
-                    {" "}
-                    <Complete />{" "}
+                    <Complete orderId={order.id} />{" "}{" "}
                   </>
                 )}
               </div>

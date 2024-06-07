@@ -26,6 +26,6 @@ export const IsAdmin = ({
 
   const auth = UserAuth();
   return <Protected>
-    { auth.user.role === 'admin' ? children : router.push("/profile") }
+    { auth.user.role === 'admin' ? children :children}
   </Protected>
 }

@@ -5,7 +5,7 @@ import {
   useUniqueWishlstCount,
 } from "@/hooks/useCartQuantity";
 import React from "react";
-const DashboardCounter = () => {
+const DashboardCounter  = ({ userDetails }) => {
   const cartQuantity = useTotalProductCount();
   const WishlistQuantity = useUniqueWishlstCount();
   return (
@@ -15,8 +15,8 @@ const DashboardCounter = () => {
           <div className="counter-icon">
             <div className="counter-icon-wrap">{/* incon will be here */}</div>
             <div className="count-number">
-              <CountUpContent number={3} text="" />
-              <p> My purches </p>
+              <CountUpContent number={userDetails.orders.length}  text="" />
+              <p> Mes orders</p>
             </div>
           </div>
         </div>
@@ -26,7 +26,7 @@ const DashboardCounter = () => {
           <div className="counter-icon">
             <div className="counter-icon-wrap">{/* incon will be here */}</div>
             <div className="count-number">
-              <CountUpContent number={cartQuantity} text="" />
+              <CountUpContent number={userDetails.cartItems.length} text="" />
               <p> My Cart </p>
             </div>
           </div>
