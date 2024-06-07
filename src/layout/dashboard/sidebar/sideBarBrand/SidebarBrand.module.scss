@@ -1,0 +1,16 @@
+@import '../../../../styles/base/index.scss';
+
+.sidebar-brand{
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 15px 18px;
+  text-align: left;
+  border-bottom: $sidebar-border-bottom;
+
+  &__link{
+    color: $color-gray-primary;
+    font-weight: 700;
+    text-decoration: none;
+  }
+}

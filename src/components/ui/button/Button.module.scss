@@ -1,0 +1,48 @@
+@import '../../../styles/base/index';
+
+.main-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  padding: 13px 26px;
+  max-height: 48px;
+  border-radius: 5px;
+  transition: .5s;
+  outline: none;
+  border: none;
+  width: 100%;
+  
+  &.primary{
+    background-color: $color-primary;
+    color: $color-gray-primary;
+    &:hover{
+      background-color: $color-gray-primary;
+      color: $color-primary;
+    }
+  }
+  &.seconde{
+    background-color: $color-gray-primary;
+    color: $color-primary;
+    &:hover{
+      background-color: $color-primary;
+      color: $color-gray-primary;
+    }
+  }
+  &:disabled{
+    cursor: not-allowed;
+    background-color: #f2f2f2 !important;
+    color: rgba(148, 152, 155, 0.5) !important;
+    border: solid 2px transparent !important;
+  }
+  
+  @include screen('med', 'max'){
+    font-size: 12px;
+  }
+  svg{
+    width: 30px;
+    height: 30px;
+    color: black;
+    fill: aqua;
+  }
+}

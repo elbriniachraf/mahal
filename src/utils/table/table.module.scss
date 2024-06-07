@@ -1,0 +1,24 @@
+@import '../../styles/base/index'; 
+
+.table-button__header{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-wrap: nowrap;
+  text-align: center;
+  
+  background-color: transparent;
+  outline: none;
+  border: none;
+
+  min-width: 100px;
+  max-width: 200px;
+}
+
+.table-button__cell{
+  font-size: 23px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+}

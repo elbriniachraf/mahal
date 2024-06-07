@@ -1,0 +1,18 @@
+@import '../../../../../styles/base/index';
+
+.form-create-categorie{
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 20px 30px;
+  gap: 40px;
+
+  @include screen('med', 'max'){
+    padding: 20px 10px;
+  }
+  .button-content{
+    width: 100%;
+    max-width: 200px;
+  }
+}
+

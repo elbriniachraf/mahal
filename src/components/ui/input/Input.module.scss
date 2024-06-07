@@ -1,0 +1,140 @@
+@import '../../../styles/base/index';
+
+/*===============
+== INPUT STYLE ==
+=================*/
+.input-content{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 35px;
+  width: 100%;
+  font-family: $font-poppins;
+
+  label{
+    color: $color-gray-primary;
+    margin-bottom: 5px;
+    font-size: 17px;
+    color: black;
+    font-weight: 600;
+    &::first-letter{
+      text-transform: uppercase;
+    }
+  }
+  input, textarea{
+    background-color: transparent;
+    font-size: 14px;
+    border: $navbar-border-bottom;
+    padding: 13px 10px;
+    border-radius: 5px;
+    outline: none;
+    resize: none;
+
+    &:disabled{
+      background-color: $color-gray-primary;
+      cursor: not-allowed;
+    }
+  }
+  .error{
+    color: rgb(220 38 38);
+    font-size: 14px;
+    padding: 0 6px;
+  }
+}
+.hidden{
+  display: none;
+}
+
+/*======================
+== RADIO BUTTON STYLE ==
+========================*/
+.radio-content{
+  margin-bottom: 35px;
+  .items{
+    display: flex;
+    align-items: center;
+  }
+  &>label{
+    margin-bottom: 10px;
+  }
+  label {
+    display: flex;
+    cursor: pointer;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+    margin-right: 20px;
+    /* Accessible outline */
+    /* Remove comment to use */ 
+    /*
+    &:focus-within {
+      outline: .125em solid $primary-color;
+    }
+    */
+    &::first-letter{
+      text-transform: uppercase;
+    }
+    input {
+      position: absolute;
+      left: -9999px;
+      &:checked + span {
+        background-color: mix(#fff, $color-gray-primary, 84%);
+        &:before {
+          box-shadow: inset 0 0 0 0.4375em $color-gray-primary;
+        }
+      }
+    }
+    span {
+      display: flex;
+      align-items: center;
+      padding: 0.375em 0.75em 0.375em 0.375em;
+      border-radius: 99em; // or something higher...
+      transition: 0.25s ease;
+      &:hover {
+        background-color: mix(#fff, $color-gray-primary, 84%);
+      }
+      &:before {
+        display: flex;
+        flex-shrink: 0;
+        content: "";
+        background-color: #fff;
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 50%;
+        margin-right: 0.375em;
+        transition: 0.25s ease;
+        box-shadow: inset 0 0 0 0.125em $color-gray-primary;
+      }
+    }
+  }
+}
+
+/*=======================
+== SELECT OPTION STYLE ==
+=========================*/
+.select-content{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 35px;
+  width: 100%;
+  font-family: $font-poppins;
+
+  label{
+    color: $color-gray-primary;
+    margin-bottom: 5px;
+    font-size: 17px;
+    color: black;
+    font-weight: 600;
+    &::first-letter{
+      text-transform: uppercase;
+    }
+  }
+  .select{
+    background-color: transparent;
+    font-size: 14px;
+    border: $navbar-border-bottom;
+    padding: 13px 10px;
+    border-radius: 5px;
+    outline: none;
+    resize: none;
+  }
+}

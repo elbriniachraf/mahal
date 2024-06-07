@@ -1,0 +1,80 @@
+
+// ? Mixins For Responsive
+@mixin screen($size, $type: min, $pixels: $breakpoint-small) {
+  @if $size == 'x-small' {
+    @media screen and (#{$type}-width: $breakpoint-xsmall) {
+      @content;
+    }
+  }
+  @else if $size == 'small' {
+    @media screen and (#{$type}-width: $breakpoint-small) {
+      @content;
+    }
+  }
+  @else if $size == 'med' {
+    @media screen and (#{$type}-width: $breakpoint-medium) {
+      @content;
+    }
+  }
+  @else if $size == 'large' {
+    @media screen and (#{$type}-width: $breakpoint-large) {
+      @content;
+    }
+  }
+  @else if $size == 'x-large' {
+    @media screen and (#{$type}-width: $breakpoint-xlarge) {
+      @content;
+    }
+  }
+  @else if $size == 'custom' {
+    @media screen and (#{$type}-width: #{$pixels}px) {
+      @content;
+    }
+  }
+  @else {
+    @content;
+  }
+}
+
+// ? Mixins For Flex
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-center-column {
+  @include flex-center;
+  flex-direction: column;
+}
+
+@mixin flex-center-vert {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flex-center-horiz {
+  display: flex;
+  justify-content: center;
+}
+
+@mixin cutsom-flex($justify: flex-start, $align: stretch) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+// ? Mixins For Position
+@mixin positionAbs($top: null, $right: null, $bottom: null, $left: null, $z-index: initial) {
+  position: absolute;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+  z-index: $z-index;
+}

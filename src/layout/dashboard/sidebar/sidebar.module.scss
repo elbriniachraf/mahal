@@ -1,0 +1,40 @@
+@import '../../../styles/base/index';
+
+
+.overlay{
+  &.sidebar-active{
+    @include screen('large', 'max') {
+      z-index: 50;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,.1);
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+  
+  @include screen('large', 'min') {
+    display: none;
+  }
+}
+.sidebar{
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  background-color: $sidebar-back-color;
+  top: 0;
+  z-index: 100;
+  font-family: $font-poppins;
+  
+  &.sidebar-active{
+    @include screen('large', 'max') {
+      transform: translatex(0);
+      transition: .5s;
+    }
+  }
+  @include screen('large', 'max') {
+    transform: translatex(-100%);
+    transition: .5s;
+  }
+}

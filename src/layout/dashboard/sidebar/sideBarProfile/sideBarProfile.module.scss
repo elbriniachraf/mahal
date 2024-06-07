@@ -1,0 +1,20 @@
+@import '../../../../styles/base/index.scss';
+
+.sidebar-profile{
+  padding: 15px 18px;
+  display: flex;
+  align-items: center;
+  border-bottom: $sidebar-border-bottom;
+  
+  &__link{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: $color-gray-primary;
+    text-decoration: none;
+
+    .img{
+      border-radius: 50%;
+    }
+  }
+}

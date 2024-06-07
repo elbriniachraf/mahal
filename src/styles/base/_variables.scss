@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+/*==========
+== COLORS ==
+============*/
+$color-primary:#343a40;
+$color-gray-primary: #c2c7d0;
+
+/*=========
+== FONTS ==
+===========*/
+$font-poppins: "Poppins", sans-serif;
+
+/*==============
+== SIDE BAR ==
+================*/
+$sidebar-back-color:$color-primary;
+$sidebar-border-bottom: 1px solid #4b545c;
+
+/*==============
+== NAV BAR ==
+================*/
+$navbar-border-bottom: 1px solid #dee2e6;
+
+
+/*==============
+== RESPONSIVE ==
+================*/
+$breakpoint-xsmall: 575px;
+$breakpoint-small: 576px;
+$breakpoint-medium: 768px;
+$breakpoint-large: 992px;
+$breakpoint-xlarge: 1200px;

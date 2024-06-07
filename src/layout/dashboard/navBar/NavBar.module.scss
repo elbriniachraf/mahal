@@ -1,0 +1,25 @@
+@import '../../../styles/base/index';
+
+.navbar{
+  padding: 15px 10px;
+  height: 55px;
+  width: 100%;
+  background-color: white;
+  border: $navbar-border-bottom;
+  margin-left: 250px;
+  position: fixed;
+  top: 0;
+  z-index: 30;
+  
+  @include screen('large', 'max') {
+    margin: 0;
+  }
+  
+  &__toggle-sidebar{
+    cursor: pointer;
+    display: none;
+    @include screen('large', 'max') {
+      display: block;
+    }
+  }
+}

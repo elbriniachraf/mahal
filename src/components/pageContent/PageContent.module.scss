@@ -1,0 +1,23 @@
+@import '../../styles/base/index';
+
+.page-content{
+  margin-top: 55px;
+  padding: 10px;
+  font-family: $font-poppins;
+  
+  @include screen('large', 'min'){
+    padding: 30px 50px;
+    margin-left: 250px;
+  }
+  main{
+    background-color: white;
+    padding: 5px 20px;
+    border-radius: 10px;
+    @include screen('large', 'min'){
+      padding: 5px;
+    }
+  }
+  &__heading{
+    margin-bottom: 20px;
+  }
+}
