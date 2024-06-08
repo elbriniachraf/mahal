@@ -51,7 +51,7 @@ const EditCategorie = ({ params }: { params: { id: string } }) => {
       const toastId = toast.loading("");
       toast.success("successfully upDate categorie", { id: toastId, duration: 1000 });
       formik.resetForm();
-      router.push('/categories')
+      router.push('/administrator/categories')
     }
     if (isErrorCategories) {
       const toastId = toast.loading("");
@@ -75,6 +75,18 @@ const EditCategorie = ({ params }: { params: { id: string } }) => {
   })
   const { handleSubmit, errors, values, handleChange, touched } = formik;
 
+  const handleUrlSlug = (titre: string) => {
+    const convertTitre = titre.trim()
+      .replace(/\s+/g, " ")
+      .toLowerCase()
+      .replace(/ /g, '-')
+      .replace(/[^\w-]+/g, '')
+    formik.setFieldValue('slug', `https://www.mahalat.ma/${convertTitre}`);
+  }
+  const handleTitleBlur = () => {
+    handleUrlSlug(values.name)
+  }
+
   return (
     <PageContent heading='Edit Categorie'>
       <form className={Classes['form-create-categorie']} onSubmit={handleSubmit}>
@@ -89,6 +101,7 @@ const EditCategorie = ({ params }: { params: { id: string } }) => {
               value={values.name}
               onChange={handleChange}
               touched={touched.name}
+              onBlur={handleTitleBlur}
             />
           </Col>
           <Col>
@@ -108,11 +121,8 @@ const EditCategorie = ({ params }: { params: { id: string } }) => {
               type='text' 
               id='slug' 
               label='Slug'
-              placeHolder='http://Slug.categorie' 
-              error={errors.slug} 
+              placeHolder='http://www.mahalat.ma/' 
               value={values.slug}
-              onChange={handleChange}
-              touched={touched.slug}
               disabled
             />
           </Col>

@@ -8,7 +8,8 @@ type Props = {
   error?: any;
   id: string;
   value: string | number;
-  onChange: (event: any) => void;
+  onChange?: (event: any) => void;
+  onBlur?: (event: any) => void;
   touched?: any;
   style?: string;
   disabled?: boolean;
@@ -17,7 +18,7 @@ type Props = {
   enabled?: boolean;
 }
 
-const Input = ({ type = 'text', id, label, placeHolder, error, value, onChange, touched, style, disabled, as, hidden, enabled = false }: Props) => {
+const Input = ({ type = 'text', onBlur, id, label, placeHolder, error, value, onChange, touched, style, disabled, as, hidden, enabled = false }: Props) => {
   return (
     <div className={Classes['input-content']}>
       <label htmlFor={id} className={hidden ? Classes.hidden : ''}> { label } </label>
@@ -40,6 +41,7 @@ const Input = ({ type = 'text', id, label, placeHolder, error, value, onChange, 
           value={value}
           onChange={onChange}
           disabled={disabled}
+          onBlur={onBlur}
         />
       }
       {error && touched && (<p className={Classes.error}>{ error }</p>) }
@@ -84,7 +86,7 @@ type SelectOptionProps = {
   onChange: (event: any) => void;
   id?: string;
 
-  selectData: {_id: string, titre: string}[]
+  selectData: {id: string, name: string}[]
 }
 export const SelectOption = ({ label, id, selectData, onChange, value }: SelectOptionProps) => {
   return <div className={Classes['select-content']}>
@@ -94,10 +96,10 @@ export const SelectOption = ({ label, id, selectData, onChange, value }: SelectO
       {selectData.length > 0 && selectData.map((item, index) =>(
         <option 
           key={index} 
-          value={item._id} 
-          selected={value === item._id}
+          value={item.id} 
+          selected={value === item.id}
         >
-          {item.titre}
+          {item.name}
         </option>
       ))}
     </select>

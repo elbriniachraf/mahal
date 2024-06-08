@@ -233,8 +233,8 @@ export const columnsCategories: ColumnDef<ICategorie>[] = [
 ]
 
 export type IProduit = {
-  _id: string
-  titre: string
+  id: string
+  name: string
   slug: "pending" | "processing" | "success" | "failed"
   status: string
   description: string
@@ -258,7 +258,7 @@ export const columnsProduits: ColumnDef<IProduit>[] = [
     }
   },
   {
-    accessorKey: "titre",
+    accessorKey: "name",
     header: ({ column }) => {
       return (
         <button
@@ -353,15 +353,30 @@ export const columnsProduits: ColumnDef<IProduit>[] = [
     accessorKey: "actions",
     header: "Actions",
     cell: ({ row }) => {
-      const Payment = row.original;
+      const {id} = row.original;
       const [isModalShow, setIsModalShow] = useState(false);
-      // const [de] = useDeleteProduitMutation();
+      const [deleteProduit, {data, isError, isSuccess, isLoading}] = useDeleteProduitMutation();
+
+      useEffect(() => {
+        if (isSuccess) {
+          const toastId = toast.loading("");
+          toast.success("successfully create Produit", { id: toastId, duration: 1000 });
+        }
+        if (isError) {
+          const toastId = toast.loading("");
+          toast.error("SomeThing Error", { id: toastId, duration: 1000 });
+        }
+      }, [isLoading]);
+
+      const handleDeleteProduit = ()=> {
+        deleteProduit(id);
+      }
       
       return(
         <>
-          <button className={Classes['table-button__cell']} onClick={() => setIsModalShow(true)}><TiEdit /></button>
+          <Link href={`/administrator/edit-produit/${id}`} className={Classes['table-button__cell']}><TiEdit /></Link>
           <button className={Classes['table-button__cell']} onClick={() => setIsModalShow(true)}><MdDelete /></button>
-          <Modal isShow={isModalShow} setShow={setIsModalShow} />
+          <Modal isShow={isModalShow} setShow={setIsModalShow} deleteFunction={handleDeleteProduit}/>
         </>
       )
     }

@@ -16,6 +16,7 @@ interface IData{
 
 const Sliders = (props: Props) => {
   const { data, isLoading, isError } = useGetSlidersQuery(0);
+  console.log(data)
 
   
   return (

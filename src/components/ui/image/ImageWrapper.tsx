@@ -24,41 +24,31 @@ const SelectImage = ({
   const handelFileChange = (e: any) => {
     // e.preventDefault();
     let file = e.target.files[0];
-    
-    formik.setFieldValue('image', file);
+    if(storeImage){
+      storeImage(file)
+    }else{
+      formik.setFieldValue('image', file);
+    }
   }
   const handelDragOver = (e: any) => {
     e.preventDefault();
     setDragging(true);
-    console.log(dragging)
   }
   const handelDragLeave = (e: any) => {
     e.preventDefault();
     setDragging(false);
-    console.log(dragging)
   }
   const handelDrop = (e: any) => {
     e.preventDefault();
     setDragging(false);
     const file = e.dataTransfer.files?.[0];
-    if(file){
-      let fileReader = new FileReader(); 
-      fileReader.readAsDataURL(file); 
-      fileReader.onload = function() {
-        if(fileReader.readyState === 2){
-          if(storeImage){
-            storeImage(fileReader.result)
-          }
-        }else{
-          formik.setFieldValue('image', fileReader.result);
-        }
-      };
+    if(storeImage){
+      storeImage(file)
+    }else{
+      formik.setFieldValue('image', file);
     }
   }
   
-  // if(formik)
-  // const { errors, touched } = formik;
-
   return (
     <Col>
       <div className={Classes['img-content']}>
@@ -101,22 +91,37 @@ export const DisplayImage = ({
 
   // let img: string;
   useEffect(()=> {
-    if(formik.values.image){
-      if(typeof formik.values.image === 'string'){
-        setImg(formik.values.image);
-      }else{
-        console.log(img)
-        let fileReader = new FileReader();
-        fileReader.readAsDataURL(formik.values.image)
-        fileReader.onload = () => {
-          if(fileReader.readyState  === 2){
-            setImg(fileReader.result);
+    if(formik){
+      if(formik.values.image){
+        if(typeof formik.values.image === 'string'){
+          setImg(formik.values.image);
+        }else{
+          console.log(img)
+          let fileReader = new FileReader();
+          fileReader.readAsDataURL(formik.values.image)
+          fileReader.onload = () => {
+            if(fileReader.readyState  === 2){
+              setImg(fileReader.result);
+            }
+          }
+          console.log(img)
+        }
+      }
+    }else{
+      if(image){
+        if(typeof image === 'string'){
+          setImg(image);
+        }else{
+          let fileReader = new FileReader();
+          fileReader.readAsDataURL(image)
+          fileReader.onload = () => {
+            if(fileReader.readyState  === 2){
+              setImg(fileReader.result);
+            }
           }
         }
-        console.log(img)
       }
     }
-    console.log(formik.values)
   }, [formik])
 
   return (

@@ -6,6 +6,7 @@ import React from 'react'
 import PageContent from '@/components/pageContent/PageContent';
 import DataTable from '@/components/ui/dataTable/DataTable';
 import { columnsProduits } from '@/utils/table/table';
+import { useGetProduitsQuery } from '@/redux/features/produit/produitApi';
 // import { useGetProduitsQuery } from '@/redux/features/produit/produitApi';
 
 type Props = {}
@@ -221,11 +222,12 @@ const produits = [
 ]
 
 const Produits = (props: Props) => {
-  // const { data, isLoading, isError } = useGetProduitsQuery(0);
+  const { data, isLoading, isError } = useGetProduitsQuery();
+  console.log(data)
   
   return (
     <PageContent heading='Produits'>
-      <DataTable columns={columnsProduits} data={produits} />
+      <DataTable columns={columnsProduits} data={data?.data || []} />
     </PageContent>
   )
 }

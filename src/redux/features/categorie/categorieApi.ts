@@ -57,6 +57,7 @@ const categorieApi = apiSliceWithtag.injectEndpoints({
     getCategorie: builder.query({
       // query: (filter) => ({url: `courses?page=${filter.page}&sort=${filter.sort}&search=${filter.search}`, method: 'GET',credentials: "include" as const}),
       query: (id: any) => `categories/${id}`,
+      providesTags: ['categorie'],
     }),
   })
 })

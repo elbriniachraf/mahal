@@ -67,8 +67,8 @@ const initializeApp = async () => {
   // await store.dispatch(
   //   apiSlice.endpoints.loadUser.initiate({}, {})
   // );
-  const user = useSelector((state: RootState)=>state.auth)
-  console.log('=======================')
+  // const user = useSelector((state: RootState)=>state.auth)
+  // console.log('=======================')
 }
 
 initializeApp();

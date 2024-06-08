@@ -22,7 +22,7 @@ const schemaCreateCategorie = yup.object().shape({
   name: yup.string()
     .required('Veuillez saisir le titre de categorie'),
   slug: yup.string(),
-    description:  yup.string().required('Veuillez description le slug de categorie'),
+  description:  yup.string().required('Veuillez description le slug de categorie'),
   image:  yup.mixed().required('File is required'),
   count: yup.number()
   .required('Veuillez saisir status de categorie '),
@@ -34,7 +34,7 @@ const AddCategorie = (props: Props) => {
   const formik = useFormik({
     initialValues: { 
       name: '', 
-      slug: 'http://Slug.categorie', 
+      slug: '', 
       description: '', 
       image: '', 
       count: 0, 
@@ -58,6 +58,19 @@ const AddCategorie = (props: Props) => {
     }
   }, [isLoading]);
 
+  const handleUrlSlug = (titre: string) => {
+    const convertTitre = titre.trim()
+      .replace(/\s+/g, " ")
+      .toLowerCase()
+      .replace(/ /g, '-')
+      .replace(/[^\w-]+/g, '')
+    formik.setFieldValue('slug', `https://www.mahalat.ma/${convertTitre}`);
+  }
+  const handleTitleBlur = () => {
+    handleUrlSlug(values.name)
+  }
+  
+  
   return (
     <PageContent heading='Ajouter Categorie'>
       <form className={Classes['form-create-categorie']} onSubmit={handleSubmit}>
@@ -72,6 +85,7 @@ const AddCategorie = (props: Props) => {
               value={values.name}
               onChange={handleChange}
               touched={touched.name}
+              onBlur={handleTitleBlur}
             />
           </Col>
           <Col>
@@ -91,11 +105,8 @@ const AddCategorie = (props: Props) => {
               type='text' 
               id='slug' 
               label='Slug'
-              placeHolder='http://Slug.categorie' 
-              error={errors.slug} 
+              placeHolder='http://www.mahalat.ma/' 
               value={values.slug}
-              onChange={handleChange}
-              touched={touched.slug}
               disabled
             />
           </Col>

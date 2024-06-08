@@ -16,7 +16,9 @@ import Image from 'next/image';
 import { useGetCategoriesQuery } from '@/redux/features/categorie/categorieApi';
 import SelectImage, { DisplayImage } from '@/components/ui/image/ImageWrapper';
 import { toast } from 'sonner';
-import { useCreateProduitMutation } from '@/redux/features/produit/produitApi';
+import { useCreateProduitMutation, useGetProduitQuery, useUpDateProduitMutation } from '@/redux/features/produit/produitApi';
+import { IProduit, initialProduit } from '@/utils/interfaces';
+import { useRouter } from 'next/navigation';
 // import { useCreateProduitMutation } from '@/redux/features/produit/produitApi';
 
 
@@ -36,25 +38,52 @@ const schemaCreateProduit = yup.object().shape({
 })
 
 
-const AddProduit = (props: Props) => {
-  const [createProduit, { data, isLoading, isSuccess, isError, error  }] = useCreateProduitMutation();
+const EditProduit = ({ params }: { params: { id: string } }) => {
+  const [produit, setProduit] = useState<IProduit>(initialProduit);
+  const router = useRouter();
+  const { data, isLoading, isSuccess, isError, error  } = useGetProduitQuery(params.id);
+  console.log(data)
   const { data: dataCategories } = useGetCategoriesQuery();
+  const [updateProduit, { 
+    data: Produits, 
+    isLoading: isLoadingProduits, 
+    isSuccess: isSuccessProduits, 
+    isError: isErrorProduits  
+  }] = useUpDateProduitMutation();
   
+  useEffect(()=>{
+    if(isSuccess){
+      setProduit(data.product)
+    }
+  },[isLoading, data])
+  
+  useEffect(()=>{
+    if (isSuccessProduits) {
+      const toastId = toast.loading("");
+      toast.success("successfully upDate Produit", { id: toastId, duration: 1000 });
+      formik.resetForm();
+      router.push('/administrator/produits')
+    }
+    if (isErrorProduits) {
+      const toastId = toast.loading("");
+      toast.error("SomeThing Error", { id: toastId, duration: 1000 });
+    }
+  },[isLoadingProduits])
+
   const formik = useFormik({
     initialValues: { 
-      titre: '', 
-      slug: '', 
+      titre: produit.name, 
+      slug: produit.slug, 
       status: 'no publish', 
-      description: '', 
-      shortDescription: '', 
-      price: '', 
+      description: produit.description, 
+      shortDescription: produit.shortDescription, 
+      price: produit.price, 
       images: [], 
-      categorie: ''
+      categorie: 48
     },
     validationSchema: schemaCreateProduit,
     onSubmit: async (values, { resetForm }) => {
-      createProduit(values)
-      // resetForm();
+      updateProduit(values)
     }
   })
   const { handleSubmit, errors, values, handleChange, touched } = formik;
@@ -205,4 +234,4 @@ const AddProduit = (props: Props) => {
   )
 }
 
-export default AddProduit
+export default EditProduit
