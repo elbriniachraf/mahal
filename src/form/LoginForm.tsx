@@ -37,7 +37,7 @@ const LoginForm = () => {
     if (isSuccess) {
       toast.success('You successfully logged in');
       formik.resetForm();
-      router.push("/");
+      router.push("/profile");
     }
     if (isError) {
       const toastId = toast.loading("");
