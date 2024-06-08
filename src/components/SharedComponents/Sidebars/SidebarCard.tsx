@@ -141,7 +141,7 @@ const SidebarCard = () => {
               {!token && (
           <div className="sidebar-action-info">
             <p>
-              Note: Vous n'êtes pas authentifié. Les commandes seront enregistrées avec votre adresse IP.
+              Note: Vous n êtes pas authentifié. Les commandes seront enregistrées avec votre adresse IP.
             </p>
           </div>
         )}

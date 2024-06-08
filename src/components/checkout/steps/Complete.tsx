@@ -4,9 +4,12 @@ import React, { useEffect, useState } from 'react';
 import './Complete.css'; // Assurez-vous d'inclure votre fichier CSS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBoxOpen, faCheckCircle, faHome, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+type CompleteProps = {
+  orderId: string; // or whatever type `orderId` should be
+};
 
-const Complete = ({ orderId }) => {
-  const [orderDetails, setOrderDetails] = useState(null);
+const Complete: React.FC<CompleteProps> = ({ orderId }) => {
+  const [orderDetails, setOrderDetails] = useState<any>(null);
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
@@ -49,7 +52,7 @@ const Complete = ({ orderId }) => {
         
         <h5><FontAwesomeIcon icon={faBoxOpen} /> Items Ordered</h5>
         <ul className="items-list">
-          {items.map((item, index) => (
+          {items.map((item:any, index:number) => (
             <li key={index} className="item">
               <p><strong>{item.product.name}</strong></p>
               <p>Quantity: {item.lineItem.quantity}</p>

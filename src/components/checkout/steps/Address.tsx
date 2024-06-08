@@ -48,9 +48,7 @@ const Address = ({ formData, setFormData, setStep }: PropsType) => {
     (state: RootState) => state.cart.cartProducts
   );
   const [itemsPanier, setItemsPanier] = useState([]);
-
-  const [token, setToken] = useState(null);
- 
+  const [token, setToken] = useState<string | null>(null);
 
 
   const getUserIP = async () => {
@@ -78,7 +76,7 @@ const Address = ({ formData, setFormData, setStep }: PropsType) => {
           },
         }
       );
-      console.log('response.data');
+      console.log("response.data");
       console.log(response.data);
       return response.data.cart_items;
     } catch (error) {
@@ -87,8 +85,8 @@ const Address = ({ formData, setFormData, setStep }: PropsType) => {
     }
   };
   
-  const calculateTotalPrice = (cartItems) => {
-    const total = cartItems.reduce((acc, item) => {
+  const calculateTotalPrice = (cartItems:any) => {
+    const total = cartItems.reduce((acc:any, item:any) => {
       return acc + (item?.product.price ?? 0) * (item?.cart_item.quantity ?? 0);
     }, 0);
     setTotalPrice(total);
@@ -428,7 +426,7 @@ const Address = ({ formData, setFormData, setStep }: PropsType) => {
        </Link>
         )}
                 <Link onClick={() => setSideCartOpen(!sideCartOpen)} href="/checkout" className="border-btn">
-                  Voir Plus d'items
+                  Voir Plus d items
                 </Link>
               </div>
             </>

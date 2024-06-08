@@ -18,7 +18,7 @@ const OrderHistory = () => {
     if (token) {
       axios
         .post(
-          'http://localhost:8000/api/userDetails', 
+          "http://localhost:8000/api/userDetails", 
           {},
           {
             headers: {
@@ -48,7 +48,7 @@ const OrderHistory = () => {
           <div key={orderIndex}>
             <p><strong>Order Id</strong> : {order.id}</p>
             <p><strong>Order Date</strong> : {new Date(order.date_created).toLocaleDateString()}</p>
-            <p><strong>Status</strong> : {order.date_completed ? new Date(order.date_completed).toLocaleDateString() : 'Pending'}</p>
+            <p><strong>Status</strong> : {order.date_completed ? new Date(order.date_completed).toLocaleDateString() : "Pending"}</p>
 
             <section className="cart-area pt-10 pb-10">
               <div className="container container-small">
@@ -71,7 +71,7 @@ const OrderHistory = () => {
                               <td className="product-thumbnail">
                                 <Link href={`/shop-details/${item.product_id}`}>
                                   <Image
-                                    src={item.product_images[0].image_url || '/default-image.jpg'}
+                                    src={item.product_images[0].image_url || "/default-image.jpg"}
                                     width={50}
                                     height={50}
                                     style={{
@@ -103,7 +103,7 @@ const OrderHistory = () => {
                                     data-bs-target="#orderTrackModal"
                                     className="btn_back"
                                   >
-                                    Suivre l'ordre
+                                    Suivre l ordre
                                   </button>
                                 </div>
                               </td>
